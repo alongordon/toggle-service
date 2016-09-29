@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Details</h1>
+
+{% for count_header in count_headers %}
+  {{count_header.count_date}} - {{count_header.description}} <br />
+{% endfor %}
+
+<p>{{anything}}</p>
+{% endblock %}

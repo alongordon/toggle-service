@@ -2,4 +2,22 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
+class CountHeader(models.Model):
+    count_date = models.DateTimeField(db_index=True, auto_now_add=True)
+    description = models.TextField(null=True)
+    
+    def __unicode__(self):
+        return '%s' % self.count_date
+        
+class CountLines(models.Model):
+    count_header = models.ForeignKey(CountHeader)
+    item_code = models.CharField(max_length=100, null=True)
+    count_1 = models.DecimalField(max_digits=9, decimal_places=2)
+    count_2 = models.DecimalField(max_digits=9, decimal_places=2)
+    count_3 = models.DecimalField(max_digits=9, decimal_places=2)
+    count_theoretical = models.DecimalField(max_digits=9, decimal_places=2)
+    
+    def __unicode__(self):
+        return '%s' % self.item_code
+        
+        
