@@ -35,9 +35,9 @@ def summary(request):
 
 	count_lines = CountLines.objects.all()
 
-	summary_count1 = CountLines.objects.all().filter(count_1__gt=0).count()
-	summary_count2 = CountLines.objects.all().filter(count_2__gt=0).count()
-	summary_count3 = CountLines.objects.all().filter(count_3__gt=0).count()
+	summary_count1 = CountLines.objects.all().filter(count_1__gte=0).count()
+	summary_count2 = CountLines.objects.all().filter(count_2__gte=0).count()
+	summary_count3 = CountLines.objects.all().filter(count_3__gte=0).count()
 	total = CountLines.objects.all().count()
 
 	summary_count1Percentage = round((float(summary_count1) / float(total)) * 100, 1)
