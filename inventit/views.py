@@ -35,6 +35,8 @@ def summary(request):
 
 	count_lines = CountLines.objects.all()
 
+	#summary_count1 = CountLines.objects.all()
+
 	context = {'count_headers': count_headers, 'lines': count_lines}
 
 	return render(request, template, context)

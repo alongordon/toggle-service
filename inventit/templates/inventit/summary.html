@@ -4,25 +4,31 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="well">
-			<h1>Capture Summary</h1>
-			<p>
-				{% for count_header in count_headers %}
-				  {{count_header.count_date}} - {{count_header.description}} <br />
-				{% endfor %}
-			</p>
-		</div>	
+		<h1>Capture Summary</h1>
+		<p>
+			{% for count_header in count_headers %}
+			  {{count_header.count_date}} - {{count_header.description}} <br />
+			{% endfor %}
+		</p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-12">
-	<form class="form-inline">
-		<div class="form-group">
-			<label for="exampleInputName2">Search</label>
-			<input type="text" class="form-control" id="searchInput" placeholder="Search">
+	
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="well">
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="exampleInputName2">Search</label>
+					<input type="text" class="form-control" id="searchInput" placeholder="Search">
+				</div>
+			</form>
 		</div>
-	</form>
 	</div>
 </div>
 
@@ -45,12 +51,48 @@
 						<td>{{line.item_code}}</td>
 						<td>
 							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
+
+							{% if line.count_1 %}
+								{% if line.count_1 > line.count_theoretical %}
+									<i class="fa fa-arrow-up text-info" aria-hidden="true"></i>
+								{% endif %}
+								{% if line.count_1 < line.count_theoretical %}
+									<i class="fa fa-arrow-down text-danger" aria-hidden="true"></i>
+								{% endif %}
+								{% if line.count_1 == line.count_theoretical %}
+									<i class="fa fa-thumbs-up text-success" aria-hidden="true"></i>
+								{% endif %}
+							{% endif %}
 						</td>
 						<td>
 							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="2" class="capture" type="text" value="{{line.count_2}}" name="">
+
+							{% if line.count_2 %}
+								{% if line.count_2 > line.count_theoretical %}
+									<i class="fa fa-arrow-up text-info" aria-hidden="true"></i>
+								{% endif %}
+								{% if line.count_2 < line.count_theoretical %}
+									<i class="fa fa-arrow-down text-danger" aria-hidden="true"></i>
+								{% endif %}
+								{% if line.count_2 == line.count_theoretical %}
+									<i class="fa fa-thumbs-up text-success" aria-hidden="true"></i>
+								{% endif %}
+							{% endif %}
 						</td>
 						<td>
 							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="3" class="capture" type="text" value="{{line.count_3}}" name="">
+
+							{% if line.count_3 %}
+								{% if line.count_3 > line.count_theoretical %}
+									<i class="fa fa-arrow-up text-info" aria-hidden="true"></i>
+								{% endif %}
+								{% if line.count_3 < line.count_theoretical %}
+									<i class="fa fa-arrow-down text-danger" aria-hidden="true"></i>
+								{% endif %}
+								{% if line.count_3 == line.count_theoretical %}
+									<i class="fa fa-thumbs-up text-success" aria-hidden="true"></i>
+								{% endif %}
+							{% endif %}
 						</td>
 						<td>{{line.count_theoretical}}</td>
 						<td>
