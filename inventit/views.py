@@ -1,13 +1,69 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from inventit.models import *
+import json
 
-def capture(request):
+def capture1(request):
 
     template = "inventit/capture.html"
-    
+
     count_headers = CountHeader.objects.all()
 
-    context = {'count_headers': count_headers}
+    count_lines = CountLines.objects.all()
+
+    context = {'count_headers': count_headers, 'lines': count_lines, 'count': 1}
 
     return render(request, template, context)
+
+def capture2(request):
+
+    template = "inventit/capture.html"
+
+    count_headers = CountHeader.objects.all()
+
+    count_lines = CountLines.objects.all()
+
+    context = {'count_headers': count_headers, 'lines': count_lines, 'count': 2}
+
+    return render(request, template, context)
+
+def summary(request):
+
+	template = "inventit/summary.html"
+    
+	count_headers = CountHeader.objects.all()
+
+	count_lines = CountLines.objects.all()
+
+	context = {'count_headers': count_headers, 'lines': count_lines}
+
+	return render(request, template, context)
+
+def save_data(request):
+	if request.method == 'POST':
+		item_code = request.POST.get('item_code')
+		count = request.POST.get('count')
+		count_type = request.POST.get('count_type')
+
+		response_data = {}
+ 
+		if count_type == '1': 
+			CountLines.objects.filter(item_code=item_code).update(count_1=count)
+
+		if count_type == '2':
+			CountLines.objects.filter(item_code=item_code).update(count_2=count)
+
+		if count_type == '3':
+			CountLines.objects.filter(item_code=item_code).update(count_3=count)
+
+		response_data['result'] = item_code + " saved!!!"
+
+		return HttpResponse(
+			json.dumps(response_data),
+			content_type="application/json"
+		)
+	else:
+		return HttpResponse(
+			json.dumps({"nothing to see": "this isn't happening"}),
+			content_type="application/json"
+		)

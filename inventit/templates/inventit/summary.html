@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="well">
-			<h1>Capture Details for Count {{count}}</h1>
+			<h1>Capture Summary</h1>
 			<p>
 				{% for count_header in count_headers %}
 				  {{count_header.count_date}} - {{count_header.description}} <br />
@@ -32,7 +32,10 @@
 			<thead> 
 				<tr>
 					<th>Item Code</th>
-					<th>Count {{count}}</th>
+					<th>Count 1</th>
+					<th>Count 2</th>
+					<th>Count 3</th>
+					<th>Count Theoretical</th>
 					<th></th>
 				</tr>
 				</thead> 
@@ -41,12 +44,15 @@
 					<tr>
 						<td>{{line.item_code}}</td>
 						<td>
-							{% if count == 1 %}
-								<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
-							{% else %}
-								<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="2" class="capture" type="text" value="{{line.count_2}}" name="">
-							{% endif%}
+							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
 						</td>
+						<td>
+							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="2" class="capture" type="text" value="{{line.count_2}}" name="">
+						</td>
+						<td>
+							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="3" class="capture" type="text" value="{{line.count_3}}" name="">
+						</td>
+						<td>{{line.count_theoretical}}</td>
 						<td>
 							<p id="lbl{{line.item_code}}" class="text-success"></p>
 						</td>

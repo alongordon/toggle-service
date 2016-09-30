@@ -20,5 +20,8 @@ from inventit import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.capture, name='capture'),
+    url(r'^$', views.capture1, name='capture1'),
+    url(r'^capture2', views.capture2, name='capture2'),
+    url(r'^summary', views.summary, name='summary'),
+    url(r'^save_data/', views.save_data, name='save_data'),
 ]

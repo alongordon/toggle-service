@@ -11,13 +11,11 @@ class CountHeader(models.Model):
         
 class CountLines(models.Model):
     count_header = models.ForeignKey(CountHeader)
-    item_code = models.CharField(max_length=100, null=True)
-    count_1 = models.DecimalField(max_digits=9, decimal_places=2)
-    count_2 = models.DecimalField(max_digits=9, decimal_places=2)
-    count_3 = models.DecimalField(max_digits=9, decimal_places=2)
+    item_code = models.CharField(max_length=100)
+    count_1 = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    count_2 = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    count_3 = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     count_theoretical = models.DecimalField(max_digits=9, decimal_places=2)
     
     def __unicode__(self):
         return '%s' % self.item_code
-        
-        
