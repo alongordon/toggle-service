@@ -68,7 +68,7 @@
 				</thead> 
 			<tbody id="fbody"> 
 				{% for line in lines %}
-					<tr class="{% if line.count_1 == line.count_2 and line.count_1 > 0 and line.count_2 > 0 %} bg-success {% endif %} {% if line.count_1 != line.count_2 and line.count_1 > 0 and line.count_2 > 0 %} bg-danger {% endif %}">
+					<tr class="{% if line.count_1 == line.count_2 and line.count_1 >= 0 and line.count_2 >= 0 %} bg-success {% endif %} {% if line.count_1 != line.count_2 and line.count_1 >= 0 and line.count_2 >= 0 %} bg-danger {% endif %}">
 						<td>{{line.item_code}}</td>
 						<td>
 							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
@@ -101,7 +101,7 @@
 							{% endif %}
 						</td>
 						<td>
-							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="3" class="capture" type="text" value="{% if line.count_1 == line.count_2 and line.count_1 > 0 and line.count_2 > 0 %} {{line.count_1}}{% endif %}" name="">
+							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="3" class="capture" type="text" value="{% if line.count_1 == line.count_2 and line.count_1 >= 0 and line.count_2 >= 0 %} {{line.count_1}}{% endif %}" name="">
 
 							{% if line.count_3 %}
 								{% if line.count_3 > line.count_theoretical %}
