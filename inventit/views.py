@@ -35,9 +35,27 @@ def summary(request):
 
 	count_lines = CountLines.objects.all()
 
-	#summary_count1 = CountLines.objects.all()
+	summary_count1 = CountLines.objects.all().filter(count_1__gt=0).count()
+	summary_count2 = CountLines.objects.all().filter(count_2__gt=0).count()
+	summary_count3 = CountLines.objects.all().filter(count_3__gt=0).count()
+	total = CountLines.objects.all().count()
 
-	context = {'count_headers': count_headers, 'lines': count_lines}
+	summary_count1Percentage = round((float(summary_count1) / float(total)) * 100, 1)
+	summary_count2Percentage = round((float(summary_count2) / float(total)) * 100, 1)
+	summary_count3Percentage = round((float(summary_count3) / float(total)) * 100, 1)
+
+	counts = {
+		'summary_count1': summary_count1,
+		'summary_count2': summary_count2,
+		'summary_count3': summary_count3,
+		'summary_count1Percentage': summary_count1Percentage,
+		'summary_count2Percentage': summary_count2Percentage,
+		'summary_count3Percentage': summary_count3Percentage,
+		'total':  total
+	}
+	
+
+	context = {'count_headers': count_headers, 'lines': count_lines, 'counts': counts}
 
 	return render(request, template, context)
 

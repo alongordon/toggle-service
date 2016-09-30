@@ -4,18 +4,39 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h1>Capture Summary</h1>
-		<p>
+		<h1>Capture Summary
+		<small>
 			{% for count_header in count_headers %}
 			  {{count_header.count_date}} - {{count_header.description}} <br />
 			{% endfor %}
-		</p>
+		</small>
+		</h1>
 	</div>
 </div>
-
 <div class="row">
 	<div class="col-md-12">
-	
+		<p>Count 1 Progress ({{counts.summary_count1}} / {{counts.total}})</p>
+		<div class="progress">
+			<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{counts.summary_count1Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{counts.summary_count1Percentage}}%;">
+				{{counts.summary_count1Percentage}}%
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<p>Count 2 Progress ({{counts.summary_count2}} / {{counts.total}})</p>
+		<div class="progress">
+			<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{counts.summary_count2Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{counts.summary_count2Percentage}}%;">
+				{{counts.summary_count2Percentage}}%
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<p>Count 3 Progress ({{counts.summary_count3}} / {{counts.total}})</p>
+		<div class="progress">
+			<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{counts.summary_count3Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{counts.summary_count3Percentage}}%;">
+				{{counts.summary_count3Percentage}}%
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -38,9 +59,9 @@
 			<thead> 
 				<tr>
 					<th>Item Code</th>
-					<th>Count 1</th>
-					<th>Count 2</th>
-					<th>Count 3</th>
+					<th>Count 1 </th>
+					<th>Count 2 </th>
+					<th>Count 3 </th>
 					<th>Count Theoretical</th>
 					<th></th>
 				</tr>

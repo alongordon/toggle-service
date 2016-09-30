@@ -84,7 +84,7 @@ $(document).ready(function() {
 	    jo.filter(function (i, v) {
 	        var $t = $(this);
 	        for (var d = 0; d < data.length; ++d) {
-	            if ($t.is(":contains('" + data[d] + "')")) {
+	            if ($t.is(":contains('" + data[d].toUpperCase() + "')")) {
 	                return true;
 	            }
 	        }
