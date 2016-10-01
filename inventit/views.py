@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from inventit.models import *
 import json
+from decimal import *
 
 def capture1(request):
 
@@ -68,10 +69,22 @@ def save_data(request):
 		response_data = {}
  
 		if count_type == '1': 
-			CountLines.objects.filter(item_code=item_code).update(count_1=count)
+			line = CountLines.objects.filter(item_code=item_code)
+
+			if line.values()[0].get('count_2') == Decimal(count):
+				line.update(count_1=count, count_3=count)
+			else:
+				line.update(count_1=count)
+
 
 		if count_type == '2':
-			CountLines.objects.filter(item_code=item_code).update(count_2=count)
+			line = CountLines.objects.filter(item_code=item_code)
+
+			#import pdb; pdb.set_trace();
+			if line.values()[0].get('count_1') == Decimal(count):
+				line.update(count_2=count, count_3=count)
+			else:
+				line.update(count_2=count)
 
 		if count_type == '3':
 			CountLines.objects.filter(item_code=item_code).update(count_3=count)

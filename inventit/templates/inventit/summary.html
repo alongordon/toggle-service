@@ -101,7 +101,7 @@
 							{% endif %}
 						</td>
 						<td>
-							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="3" class="capture" type="text" value="{% if line.count_1 == line.count_2 and line.count_1 >= 0 and line.count_2 >= 0 %} {{line.count_1}}{% endif %}" name="">
+							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="3" class="capture" type="text" value="{{line.count_3}}" name="">
 
 							{% if line.count_3 %}
 								{% if line.count_3 > line.count_theoretical %}

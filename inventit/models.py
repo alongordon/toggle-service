@@ -19,3 +19,9 @@ class CountLines(models.Model):
     
     def __unicode__(self):
         return '%s' % self.item_code
+
+    def save(self):
+        if self.count_1 == self.count_2:
+            self.count_3 = self.count_1
+
+        super(CountLines, self).save()
