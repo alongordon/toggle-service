@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^capture2', views.capture2, name='capture2'),
     url(r'^summary', views.summary, name='summary'),
     url(r'^save_data/', views.save_data, name='save_data'),
+    url(r'^export', views.export, name='export'),
 ]

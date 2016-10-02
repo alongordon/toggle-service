@@ -1,8 +1,10 @@
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from inventit.models import *
 import json
 from decimal import *
+import csv
 
 def capture1(request):
 
@@ -28,6 +30,7 @@ def capture2(request):
 
     return render(request, template, context)
 
+@login_required()
 def summary(request):
 
 	template = "inventit/summary.html"
@@ -100,3 +103,16 @@ def save_data(request):
 			json.dumps({"nothing to see": "this isn't happening"}),
 			content_type="application/json"
 		)
+
+def export(request):
+
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="export.csv"'
+
+	writer = csv.writer(response)
+	writer.writerow(['Item Code', 'Count 1', 'Count 2', 'Count 3', 'Theoretical'])
+
+	for countLine in CountLines.objects.all():
+		writer.writerow([countLine.item_code, countLine.count_1, countLine.count_2, countLine.count_3, countLine.count_theoretical])
+
+	return response
