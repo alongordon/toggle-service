@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 
-		with open(os.path.join(settings.ROOT_PATH, '../inventit/data/import_jan2016.csv'), 'rb') as file:
+		with open(os.path.join(settings.ROOT_PATH, '../inventit/data/import_jan2016.csv'), 'r') as file:
 			rows = csv.reader(file, delimiter=",", quotechar='"')
 
 			for row in rows:
