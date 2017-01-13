@@ -11,3 +11,5 @@ parts
 src/*.egg-info
 lib
 lib64
+.DS_Store
+db.sqlite3

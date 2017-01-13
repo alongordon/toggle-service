@@ -5,14 +5,15 @@ from inventit.models import *
 import json
 from decimal import *
 import csv
+from django.conf import settings
 
 def capture1(request):
 
     template = "inventit/capture.html"
 
-    count_headers = CountHeader.objects.all()
+    count_headers = CountHeader.objects.filter(id=settings.COUNT_HEADER_ID)
 
-    count_lines = CountLines.objects.all()
+    count_lines = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID)
 
     context = {'count_headers': count_headers, 'lines': count_lines, 'count': 1}
 
@@ -22,9 +23,9 @@ def capture2(request):
 
     template = "inventit/capture.html"
 
-    count_headers = CountHeader.objects.all()
+    count_headers = CountHeader.objects.filter(id=settings.COUNT_HEADER_ID)
 
-    count_lines = CountLines.objects.all()
+    count_lines = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID)
 
     context = {'count_headers': count_headers, 'lines': count_lines, 'count': 2}
 
@@ -35,18 +36,25 @@ def summary(request):
 
 	template = "inventit/summary.html"
     
-	count_headers = CountHeader.objects.all()
+	count_headers = CountHeader.objects.filter(id=settings.COUNT_HEADER_ID)
 
-	count_lines = CountLines.objects.all()
+	count_lines = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID)
 
-	summary_count1 = CountLines.objects.all().filter(count_1__gte=0).count()
-	summary_count2 = CountLines.objects.all().filter(count_2__gte=0).count()
-	summary_count3 = CountLines.objects.all().filter(count_3__gte=0).count()
-	total = CountLines.objects.all().count()
+	summary_count1 = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID).filter(count_1__gte=0).count()
+	summary_count2 = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID).filter(count_2__gte=0).count()
+	summary_count3 = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID).filter(count_3__gte=0).count()
+	total = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID).count()
 
-	summary_count1Percentage = round((float(summary_count1) / float(total)) * 100, 1)
-	summary_count2Percentage = round((float(summary_count2) / float(total)) * 100, 1)
-	summary_count3Percentage = round((float(summary_count3) / float(total)) * 100, 1)
+	summary_count1Percentage = 0
+	summary_count2Percentage = 0
+	summary_count3Percentage = 0
+
+	if summary_count1Percentage:
+		summary_count1Percentage = round((float(summary_count1) / float(total)) * 100, 1)
+	if summary_count2Percentage:
+		summary_count2Percentage = round((float(summary_count2) / float(total)) * 100, 1)
+	if summary_count3Percentage:
+		summary_count3Percentage = round((float(summary_count3) / float(total)) * 100, 1)
 
 	counts = {
 		'summary_count1': summary_count1,
