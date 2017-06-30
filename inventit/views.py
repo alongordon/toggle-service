@@ -6,6 +6,7 @@ import json
 from decimal import *
 import csv
 
+@login_required()
 def capture1(request):
 
     template = "inventit/capture.html"
@@ -18,6 +19,7 @@ def capture1(request):
 
     return render(request, template, context)
 
+@login_required()
 def capture2(request):
 
     template = "inventit/capture.html"
@@ -63,6 +65,7 @@ def summary(request):
 
 	return render(request, template, context)
 
+@login_required()
 def save_data(request):
 	if request.method == 'POST':
 		item_code = request.POST.get('item_code')
@@ -104,6 +107,7 @@ def save_data(request):
 			content_type="application/json"
 		)
 
+@login_required()
 def export(request):
 
 	response = HttpResponse(content_type='text/csv')

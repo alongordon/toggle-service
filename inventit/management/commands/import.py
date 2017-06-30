@@ -21,7 +21,7 @@ class Command(BaseCommand):
 				#print "item_code: " + row[0]
 				#print "count_theoretical:  " + row[1]
 
-				db_row = CountLines(item_code=row[0], count_theoretical=row[1], count_header_id=1)
+				db_row = CountLines(item_code=row[0], count_1=row[1], count_2=row[2], count_3=row[3], count_theoretical=row[4], count_header_id=1)
 				db_row.save()
 
 			# dump entire table
