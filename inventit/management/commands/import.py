@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 
-		with open(os.path.join(settings.ROOT_PATH, '../inventit/data/import.csv'), 'rb') as file:
+		with open(os.path.join(settings.ROOT_PATH, '../inventit/data/import_jan2016.csv'), 'r') as file:
 			rows = csv.reader(file, delimiter=",", quotechar='"')
 
 			for row in rows:
@@ -21,11 +21,15 @@ class Command(BaseCommand):
 				#print "item_code: " + row[0]
 				#print "count_theoretical:  " + row[1]
 
+<<<<<<< HEAD
 				db_row = CountLines(item_code=row[0], count_1=row[1], count_2=row[2], count_3=row[3], count_theoretical=row[4], count_header_id=1)
+=======
+				db_row = CountLines(item_code=row[0], count_theoretical=row[1], count_header_id=settings.COUNT_HEADER_ID)
+>>>>>>> b4c3e66bb912c7632edb94c5667692228e480086
 				db_row.save()
 
 			# dump entire table
-			for count_lines in CountLines.objects.all():
-				print count_lines
+			for count_lines in CountLines.objects.filter(count_header_id=settings.COUNT_HEADER_ID):
+				print(count_lines)
 
 
