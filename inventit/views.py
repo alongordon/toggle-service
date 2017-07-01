@@ -124,7 +124,7 @@ def export(request):
 	writer = csv.writer(response)
 	writer.writerow(['Item Code', 'Count 1', 'Count 2', 'Count 3', 'Theoretical'])
 
-	for countLine in CountLines.objects.all():
+	for countLine in CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID):
 		writer.writerow([countLine.item_code, countLine.count_1, countLine.count_2, countLine.count_3, countLine.count_theoretical])
 
 	return response
