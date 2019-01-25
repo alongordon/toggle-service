@@ -125,4 +125,4 @@ LOGIN_URL = '/admin'
 
 STATIC_URL = '/static/'
 ROOT_PATH = os.path.split(os.path.abspath(__file__))[0]
-COUNT_HEADER_ID=2 #This should be stored in a table so that you dont need to deploy to set the header for the count.
+# COUNT_HEADER_ID=2 Moved to Count Header Model, is_active :)
