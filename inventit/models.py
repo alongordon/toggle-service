@@ -54,7 +54,7 @@ class Category(models.Model):
 class CountLines(models.Model):
     count_header = models.ForeignKey(CountHeader)
     item_code = models.CharField(max_length=100)
-    category = models.OneToOneField(
+    category = models.ForeignKey(
         to=Category, on_delete=models.DO_NOTHING, related_name="count_lines"
     )
     count_1 = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
