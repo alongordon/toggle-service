@@ -11,7 +11,7 @@ class CountLinesAdmin(admin.ModelAdmin):
 	list_display = ('item_code', 'category', 'count_1', 'count_2', 'count_3', 'count_theoretical',)
 	list_filter = ('count_header__description', 'category')
 	search_fields = ['item_code']
-
+	
 
 class ProfileInline(admin.TabularInline):
 	model = Profile
