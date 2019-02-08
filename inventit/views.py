@@ -41,11 +41,11 @@ def capture2(request):
     # my allowed categories
     categories = categories.filter(count_2=profile.team)
 
-    count_headers = CountHeader.objects.filter(id=settings.COUNT_HEADER_ID)
+    count_header = CountHeader.objects.filter(is_active=True)
 
-    count_lines = CountLines.objects.filter(Q(count_header=settings.COUNT_HEADER_ID) & Q(category__in=categories))
+    count_lines = CountLines.objects.filter(Q(count_header=count_header.first()) & Q(category__in=categories))
 
-    context = {"count_headers": count_headers, "lines": count_lines, "count": 2}
+    context = {"count_headers": count_header, "lines": count_lines, "count": 2}
 
     return render(request, template, context)
 
@@ -61,10 +61,10 @@ def capture3(request):
     # my allowed categories
     categories = categories.filter(count_3=profile.team)
 
-    count_headers = CountHeader.objects.filter(id=settings.COUNT_HEADER_ID)
+    count_header = CountHeader.objects.filter(is_active=True)
 
-    count_lines = CountLines.objects.filter(Q(count_header=settings.COUNT_HEADER_ID) & Q(category__in=categories))
-    context = {"count_headers": count_headers, "lines": count_lines, "count": 3}
+    count_lines = CountLines.objects.filter(Q(count_header=count_header.first()) & Q(category__in=categories))
+    context = {"count_headers": count_header, "lines": count_lines, "count": 3}
 
     return render(request, template, context)
 
@@ -74,26 +74,26 @@ def summary(request):
 
     template = "inventit/summary.html"
 
-    count_headers = CountHeader.objects.filter(id=settings.COUNT_HEADER_ID)
+    count_header = CountHeader.objects.filter(is_active=True)
 
-    count_lines = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID)
+    count_lines = CountLines.objects.filter(count_header=count_header.first())
 
     summary_count1 = (
-        CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID)
+        CountLines.objects.filter(count_header=count_header.first())
         .filter(count_1__gte=0)
         .count()
     )
     summary_count2 = (
-        CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID)
+        CountLines.objects.filter(count_header=count_header.first())
         .filter(count_2__gte=0)
         .count()
     )
     summary_count3 = (
-        CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID)
+        CountLines.objects.filter(count_header=count_header.first())
         .filter(count_3__gte=0)
         .count()
     )
-    total = CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID).count()
+    total = CountLines.objects.filter(count_header=count_header.first()).count()
 
     summary_count1Percentage = 0
     summary_count2Percentage = 0
@@ -122,7 +122,7 @@ def summary(request):
         "total": total,
     }
 
-    context = {"count_headers": count_headers, "lines": count_lines, "counts": counts}
+    context = {"count_headers": count_header, "lines": count_lines, "counts": counts}
 
     return render(request, template, context)
 
@@ -175,7 +175,9 @@ def export(request):
     writer = csv.writer(response)
     writer.writerow(["Item Code", "Count 1", "Count 2", "Count 3", "Theoretical"])
 
-    for countLine in CountLines.objects.filter(count_header=settings.COUNT_HEADER_ID):
+    count_header = CountHeader.objects.filter(is_active=True)
+
+    for countLine in CountLines.objects.filter(count_header=count_header.first()):
         writer.writerow(
             [
                 countLine.item_code,
