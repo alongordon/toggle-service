@@ -5,12 +5,6 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="well">
-            <div class="row">
-                <a role="button" href="{% url "summary" %}" class="btn btn-primary">Summary</a>
-                <a role="button" href="{% url "capture1" %}" class="btn btn-primary">Count 1</a>
-                <a role="button" href="{% url "capture2" %}" class="btn btn-primary">Count 2</a>
-                <a role="button" href="{% url "capture3" %}" class="btn btn-primary">Count 3</a>
-            </div>
 			<h1>Capture Details for Count {{count}}</h1>
 			<p>
 				{% for count_header in count_headers %}
@@ -39,33 +33,38 @@
 				<tr>
 					<th>Item Code</th>
 					<th>Count {{count}}</th>
-					<th></th>
+					<th>Bin</th>
+                    <th>Result</th>
 				</tr>
 				</thead> 
-			<tbody id="fbody"> 
+			<tbody id="fbody">
 				{% for line in lines %}
 					<tr>
                         {% if count != 3 %}
-						    <td>{{line.item_code}}</td>
+						    <td>{{line.inventory.item_code}}</td>
                         {% else %}
                             {% if line.count_1 != line.count_2%}
-                            <td>{{line.item_code}}</td>
+                                <td>{{line.inventory.item_code}}</td>
                             {% endif %}
                         {% endif %}
 						<td>
 							{% if count == 1 %}
-								<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
+								<input id="{{line.inventory.item_code}}" name="{{line.inventory.item_code}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
 							{% elif count == 2 %}
-								<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="2" class="capture" type="text" value="{{line.count_2}}" name="">
+								<input id="{{line.inventory.item_code}}" name="{{line.inventory.item_code}}" data-count="2" class="capture" type="text" value="{{line.count_2}}" name="">
                             {% else %}
                                 {% if line.count_1 != line.count_2 and line.count_1 and line.count_2 %}
-                                <input id="{{line.item_code}}" name="{{line.item_code}}" data-count="3" class="capture" type="text" value="{{line.count_3}}" name="">
+                                <input id="{{line.inventory.item_code}}" name="{{line.inventory.item_code}}" data-count="3" class="capture" type="text" value="{{line.count_3}}" name="">
                                 {% endif %}
 							{% endif%}
 						</td>
+                        <td>
+                            {{ line.category.name }}
+                        </td>
 						<td>
-							<p id="lbl{{line.item_code}}" class="text-success"></p>
+							<p id="lbl{{line.inventory.item_code}}" class="text-success"></p>
 						</td>
+
 					</tr>
 				{% endfor %}
 			</tbody> 

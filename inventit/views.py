@@ -15,11 +15,9 @@ def capture1(request):
     template = "inventit/capture.html"
 
     profile = Profile.objects.get(user=request.user)
-    categories = Category.objects.all()
-
 
     #my allowed categories
-    categories = categories.filter(count_1=profile.team)
+    categories = Category.objects.filter(count_1=profile.team)
 
     count_header = CountHeader.objects.filter(is_active=True)
 
@@ -36,10 +34,9 @@ def capture2(request):
     template = "inventit/capture.html"
 
     profile = Profile.objects.get(user=request.user)
-    categories = Category.objects.all()
 
     # my allowed categories
-    categories = categories.filter(count_2=profile.team)
+    categories = Category.objects.filter(count_2=profile.team)
 
     count_header = CountHeader.objects.filter(is_active=True)
 
@@ -56,10 +53,9 @@ def capture3(request):
     template = "inventit/capture.html"
 
     profile = Profile.objects.get(user=request.user)
-    categories = Category.objects.all()
 
     # my allowed categories
-    categories = categories.filter(count_3=profile.team)
+    categories = Category.objects.filter(count_3=profile.team)
 
     count_header = CountHeader.objects.filter(is_active=True)
 
@@ -76,7 +72,7 @@ def summary(request):
 
     count_header = CountHeader.objects.filter(is_active=True)
 
-    count_lines = CountLines.objects.filter(count_header=count_header.first())
+    inventory = Inventory.objects.all() #CountLines.objects.filter(count_header=count_header.first())
 
     summary_count1 = (
         CountLines.objects.filter(count_header=count_header.first())
@@ -122,7 +118,7 @@ def summary(request):
         "total": total,
     }
 
-    context = {"count_headers": count_header, "lines": count_lines, "counts": counts}
+    context = {"count_headers": count_header, "inventory": inventory, "counts": counts}
 
     return render(request, template, context)
 
@@ -137,7 +133,7 @@ def save_data(request):
         response_data = {}
 
         if count_type == "1":
-            line = CountLines.objects.filter(item_code=item_code)
+            line = CountLines.objects.filter(inventory__item_code=item_code)
 
             if line.values()[0].get("count_2") == Decimal(count):
                 line.update(count_1=count, count_3=count)
@@ -145,7 +141,7 @@ def save_data(request):
                 line.update(count_1=count)
 
         if count_type == "2":
-            line = CountLines.objects.filter(item_code=item_code)
+            line = CountLines.objects.filter(inventory__item_code=item_code)
 
             # import pdb; pdb.set_trace();
             if line.values()[0].get("count_1") == Decimal(count):
@@ -154,7 +150,7 @@ def save_data(request):
                 line.update(count_2=count)
 
         if count_type == "3":
-            CountLines.objects.filter(item_code=item_code).update(count_3=count)
+            CountLines.objects.filter(inventory__item_code=item_code).update(count_3=count)
 
         response_data["result"] = item_code + " saved!!!"
 

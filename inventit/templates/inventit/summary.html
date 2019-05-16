@@ -1,132 +1,126 @@
 {% extends 'base.html' %}
+{% load extras %}
 
 {% block content %}
 
-<div class="row">
-	<div class="col-md-12">
-		<h1>Capture Summary
-		<small>
-			{% for count_header in count_headers %}
-			  {{count_header.count_date}} - {{count_header.description}} <br />
-			{% endfor %}
-		</small>
-		</h1>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<p>Count 1 Progress ({{counts.summary_count1}} / {{counts.total}})</p>
-		<div class="progress">
-			<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{counts.summary_count1Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{counts.summary_count1Percentage}}%;">
-				{{counts.summary_count1Percentage}}%
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12">
-		<p>Count 2 Progress ({{counts.summary_count2}} / {{counts.total}})</p>
-		<div class="progress">
-			<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{counts.summary_count2Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{counts.summary_count2Percentage}}%;">
-				{{counts.summary_count2Percentage}}%
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12">
-		<p>Count 3 Progress ({{counts.summary_count3}} / {{counts.total}})</p>
-		<div class="progress">
-			<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{counts.summary_count3Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{counts.summary_count3Percentage}}%;">
-				{{counts.summary_count3Percentage}}%
-			</div>
-		</div>
-	</div>
-</div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Capture Summary
+                <small>
+                    {% for count_header in count_headers %}
+                        {{ count_header.count_date }} - {{ count_header.description }} <br/>
+                    {% endfor %}
+                </small>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Count 1 Progress ({{ counts.summary_count1 }} / {{ counts.total }})</p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                     aria-valuenow="{{ counts.summary_count1Percentage }}" aria-valuemin="0" aria-valuemax="100"
+                     style="width: {{ counts.summary_count1Percentage }}%;">
+                    {{ counts.summary_count1Percentage }}%
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <p>Count 2 Progress ({{ counts.summary_count2 }} / {{ counts.total }})</p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                     aria-valuenow="{{ counts.summary_count2Percentage }}" aria-valuemin="0" aria-valuemax="100"
+                     style="width: {{ counts.summary_count2Percentage }}%;">
+                    {{ counts.summary_count2Percentage }}%
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <p>Count 3 Progress ({{ counts.summary_count3 }} / {{ counts.total }})</p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                     aria-valuenow="{{ counts.summary_count3Percentage }}" aria-valuemin="0" aria-valuemax="100"
+                     style="width: {{ counts.summary_count3Percentage }}%;">
+                    {{ counts.summary_count3Percentage }}%
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="row">
-	<div class="col-md-6">
-		<div class="well">
-			<form class="form-inline">
-				<div class="form-group">
-					<label for="exampleInputName2">Search</label>
-					<input type="text" class="form-control" id="searchInput" placeholder="Search">
-				</div>
-			</form>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<a href="/export" class="btn btn-primary">Export Data</a>
-	</div>
-</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2">Search</label>
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <a href="/export" class="btn btn-primary">Export Data</a>
+        </div>
+    </div>
 
-<div class="row">
-	<div class="col-md-12">
-		<table class="table"> 
-			<thead> 
-				<tr>
-					<th>Item Code</th>
-					<th>Count 1 </th>
-					<th>Count 2 </th>
-					<th>Count 3 </th>
-					<th>Count Theoretical</th>
-					<th></th>
-				</tr>
-				</thead> 
-			<tbody id="fbody"> 
-				{% for line in lines %}
-					<tr class="{% if line.count_1 == line.count_2 and line.count_1 >= 0 and line.count_2 >= 0 %} bg-success {% endif %} {% if line.count_1 != line.count_2 and line.count_1 >= 0 and line.count_2 >= 0 %} bg-danger {% endif %}">
-						<td>{{line.item_code}}</td>
-						<td>
-							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Item Code</th>
+                    <th>Count Summary</th>
+                    <th>Count Theoretical</th>
+                </tr>
+                </thead>
+                <tbody id="fbody">
 
-							{% if line.count_1 %}
-								{% if line.count_1 > line.count_theoretical %}
-									<i class="fa fa-arrow-up text-info" aria-hidden="true"></i>
-								{% endif %}
-								{% if line.count_1 < line.count_theoretical %}
-									<i class="fa fa-arrow-down text-danger" aria-hidden="true"></i>
-								{% endif %}
-								{% if line.count_1 == line.count_theoretical %}
-									<i class="fa fa-thumbs-up text-success" aria-hidden="true"></i>
-								{% endif %}
-							{% endif %}
-						</td>
-						<td>
-							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="2" class="capture" type="text" value="{{line.count_2}}" name="">
+                {% for item in inventory %}
 
-							{% if line.count_2 %}
-								{% if line.count_2 > line.count_theoretical %}
-									<i class="fa fa-arrow-up text-info" aria-hidden="true"></i>
-								{% endif %}
-								{% if line.count_2 < line.count_theoretical %}
-									<i class="fa fa-arrow-down text-danger" aria-hidden="true"></i>
-								{% endif %}
-								{% if line.count_2 == line.count_theoretical %}
-									<i class="fa fa-thumbs-up text-success" aria-hidden="true"></i>
-								{% endif %}
-							{% endif %}
-						</td>
-						<td>
-							<input id="{{line.item_code}}" name="{{line.item_code}}" data-count="3" class="capture" type="text" value="{{line.count_3}}" name="">
+                    <tr class="{% summary_colour item %}">
+                        <td data-toggle="collapse" data-target="#accordion_{{ item.pk }}">
+                            {{ item.item_code }}
+                        </td>
+                        <td>
+                            <input id="count_summary_{{ item.pk }}" name="count_summary_{{ item.pk }}"
+                                   type="text" value="{{ item.count_summary }}">
+                        </td>
+                        <td>
+                            {{ item.count_theoretical }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding: 0">
+                            <div id="accordion_{{ item.pk }}" class="collapse">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Bin</th>
+                                        <th>Count 1</th>
+                                        <th>Count 2</th>
+                                        <th>Count 3</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="fbody">
+                                    {% get_line_items item.item_code as line_items %}
+                                    {% for line_item in line_items %}
+                                        <tr>
+                                            <td>{{ line_item.category }}</td>
+                                            <td>{{ line_item.count_1 }}</td>
+                                            <td>{{ line_item.count_2 }}</td>
+                                            <td>{{ line_item.count_3 }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
 
-							{% if line.count_3 %}
-								{% if line.count_3 > line.count_theoretical %}
-									<i class="fa fa-arrow-up text-info" aria-hidden="true"></i>
-								{% endif %}
-								{% if line.count_3 < line.count_theoretical %}
-									<i class="fa fa-arrow-down text-danger" aria-hidden="true"></i>
-								{% endif %}
-								{% if line.count_3 == line.count_theoretical %}
-									<i class="fa fa-thumbs-up text-success" aria-hidden="true"></i>
-								{% endif %}
-							{% endif %}
-						</td>
-						<td>{{line.count_theoretical}}</td>
-						<td>
-							<p id="lbl{{line.item_code}}" class="text-success"></p>
-						</td>
-					</tr>
-				{% endfor %}
-			</tbody> 
-		</table>
-	</div>
-</div>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}

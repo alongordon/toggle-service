@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 	//Link in the save events on exit of textboxes
 	$('input.capture').blur(function() {
-		var name = $(this).attr("name")
+		var name = $(this).attr("name");
 		var count = $(this).val();
 		var count_type = $(this).data('count');
 
@@ -51,14 +51,14 @@ $(document).ready(function() {
 	        // handle a successful response
 	        success : function(json) {
 	        	$('#lbl' + name).text(json.result);
-	        	$('#lbl' + name).addClass('text-success')
+	        	$('#lbl' + name).addClass('text-success');
 	        	$('#lbl' + name).removeClass('text-danger')
 	        },
 
 	        // handle a non-successful response
 	        error : function(xhr,errmsg,err) {
 	        	$('#lbl' + name).text('Error saving data');
-	        	$('#lbl' + name).removeClass('text-success')
+	        	$('#lbl' + name).removeClass('text-success');
 	        	$('#lbl' + name).addClass('text-danger')
 	        }
 	    });
