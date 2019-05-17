@@ -84,7 +84,7 @@ class CountLines(models.Model):
     def __str__(self):
         return "%s" % self.inventory.item_code
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.count_1 == self.count_2:
             self.count_3 = self.count_1
 
@@ -100,5 +100,3 @@ def update_count_summary(sender, instance, created, **kwargs):
 
 
 post_save.connect(update_count_summary, sender=CountLines)
-
-

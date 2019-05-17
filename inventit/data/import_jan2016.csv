@@ -1,10 +1,7 @@
-item_code,count_theoretical, category
-5*25-7991,945, Wood
-6*12-916,156, Paper
-6*16-916,1500, Glass
-ABG-001,0, Wood
-ABG-006,0, Paper
-ABG-008,348, Glass
-AIA12-2000B,0, Wood
-AIA12-3000B,0, Paper,
-AIA12-ANO-BPS,0, Glass
+item_code,count_theoretical,category
+6*12-916,0,Pick Face
+6*12-WASH,8172,Pick Face
+6*14-WASH,2000,Pick Face
+6*16-916,353,Pick Face
+6*17-STR,4842,Pick Face
+6*6-916,2478,Pick Face
