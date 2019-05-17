@@ -22,11 +22,11 @@ class Command(BaseCommand):
 				#print "item_code: " + row[0]
 				#print "count_theoretical:  " + row[1]
 
-				inventory = Inventory.objects.get_or_create(item_code=row[0], count_theoretical=row[1])
+				# inventory = Inventory.objects.create(item_code=row[0], count_theoretical=row[1])
 
-				category = Category.objects.filter(name=row[2]).first()
-				db_row = CountLines(category=category, inventory=inventory, count_header=count_header)
-				db_row.save()
+				# category = Category.objects.filter(name=row[2]).first()
+				#db_row = CountLines(category=category, inventory=inventory, count_header=count_header)
+				# db_row.save()
 
 			# dump entire table
 			for count_lines in CountLines.objects.filter(count_header=count_header):
