@@ -20,7 +20,9 @@ def capture1(request):
 
     count_header = CountHeader.objects.filter(is_active=True)
 
-    count_lines = CountLines.objects.filter(Q(count_header=count_header.first()) & Q(category__in=categories))
+    count_lines = CountLines.objects.filter(
+        Q(count_header=count_header.first()) & Q(category__in=categories)
+    )
 
     context = {"count_headers": count_header, "lines": count_lines, "count": 1}
 
@@ -38,7 +40,9 @@ def capture2(request):
 
     count_header = CountHeader.objects.filter(is_active=True)
 
-    count_lines = CountLines.objects.filter(Q(count_header=count_header.first()) & Q(category__in=categories))
+    count_lines = CountLines.objects.filter(
+        Q(count_header=count_header.first()) & Q(category__in=categories)
+    )
 
     context = {"count_headers": count_header, "lines": count_lines, "count": 2}
 
@@ -56,7 +60,9 @@ def capture3(request):
 
     count_header = CountHeader.objects.filter(is_active=True)
 
-    count_lines = CountLines.objects.filter(Q(count_header=count_header.first()) & Q(category__in=categories))
+    count_lines = CountLines.objects.filter(
+        Q(count_header=count_header.first()) & Q(category__in=categories)
+    )
     context = {"count_headers": count_header, "lines": count_lines, "count": 3}
 
     return render(request, template, context)
@@ -68,22 +74,24 @@ def summary(request):
 
     count_header = CountHeader.objects.filter(is_active=True)
 
-    inventory = Inventory.objects.all()  # CountLines.objects.filter(count_header=count_header.first())
+    inventory = (
+        Inventory.objects.all()
+    )  # CountLines.objects.filter(count_header=count_header.first())
 
     summary_count1 = (
         CountLines.objects.filter(count_header=count_header.first())
-            .filter(count_1__gte=0)
-            .count()
+        .filter(count_1__gte=0)
+        .count()
     )
     summary_count2 = (
         CountLines.objects.filter(count_header=count_header.first())
-            .filter(count_2__gte=0)
-            .count()
+        .filter(count_2__gte=0)
+        .count()
     )
     summary_count3 = (
         CountLines.objects.filter(count_header=count_header.first())
-            .filter(count_3__gte=0)
-            .count()
+        .filter(count_3__gte=0)
+        .count()
     )
     total = CountLines.objects.filter(count_header=count_header.first()).count()
 
@@ -142,22 +150,22 @@ def save_count_summary(request):
 @login_required()
 def save_data(request):
     if request.method == "POST":
-        item_code = request.POST.get("item_code")
+        pk = request.POST.get("pk")
         count = request.POST.get("count")
         count_type = request.POST.get("count_type")
 
         response_data = {}
 
         if count_type == "1":
-            line = CountLines.objects.filter(inventory__item_code=item_code)
+            line = CountLines.objects.filter(pk=pk)
 
             if line.values()[0].get("count_2") == Decimal(count):
                 line.update(count_1=count, count_3=count)
             else:
                 line.update(count_1=count)
 
-        if count_type == "2":
-            line = CountLines.objects.filter(inventory__item_code=item_code)
+        elif count_type == "2":
+            line = CountLines.objects.filter(pk=pk)
 
             # import pdb; pdb.set_trace();
             if line.values()[0].get("count_1") == Decimal(count):
@@ -165,10 +173,25 @@ def save_data(request):
             else:
                 line.update(count_2=count)
 
-        if count_type == "3":
-            CountLines.objects.filter(inventory__item_code=item_code).update(count_3=count)
+        else:
+            line = CountLines.objects.filter(pk=pk)
+            line.update(count_3=count)
 
-        response_data["result"] = item_code + " saved!!!"
+        # Update the Inventory count summary
+        count_lines = CountLines.objects.filter(inventory__item_code=line.first().inventory.item_code)
+
+        sum = 0
+        for count_line in count_lines:
+            if count_line.count_3:
+                sum += count_line.count_3
+
+        inventory = Inventory.objects.filter(item_code=line.first().inventory.item_code).first()
+
+        if inventory:
+            inventory.count_summary = sum
+            inventory.save()
+
+        response_data["result"] = "Saved!!!"
 
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:

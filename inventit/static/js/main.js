@@ -67,7 +67,7 @@ $(document).ready(function () {
 
     //Link in the save events on exit of textboxes
     $('input.capture').blur(function () {
-        var name = $(this).attr("name");
+        var pk = $(this).attr("name");
         var count = $(this).val();
         var count_type = $(this).data('count');
 
@@ -100,20 +100,20 @@ $(document).ready(function () {
             $.ajax({
                 url: "save_data/", // the endpoint
                 type: "POST", // http method
-                data: {item_code: name, count: count, count_type: count_type}, // data sent with the post request
+                data: {pk: pk, count: count, count_type: count_type}, // data sent with the post request
 
                 // handle a successful response
                 success: function (json) {
-                    $('#lbl' + name).text(json.result);
-                    $('#lbl' + name).addClass('text-success');
-                    $('#lbl' + name).removeClass('text-danger')
+                    $('#lbl' + pk).text(json.result);
+                    $('#lbl' + pk).addClass('text-success');
+                    $('#lbl' + pk).removeClass('text-danger')
                 },
 
                 // handle a non-successful response
                 error: function (xhr, errmsg, err) {
-                    $('#lbl' + name).text('Error saving data');
-                    $('#lbl' + name).removeClass('text-success');
-                    $('#lbl' + name).addClass('text-danger')
+                    $('#lbl' + pk).text('Error saving data');
+                    $('#lbl' + pk).removeClass('text-success');
+                    $('#lbl' + pk).addClass('text-danger')
                 }
             });
         }
