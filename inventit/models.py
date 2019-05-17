@@ -52,19 +52,22 @@ class Category(models.Model):
 class Inventory(models.Model):
     item_code = models.CharField(max_length=100)
     count_theoretical = models.DecimalField(max_digits=9, decimal_places=2)
-
-    @property
-    def count_summary(self):
-        count_lines = CountLines.objects.filter(inventory__item_code=self.item_code)
-
-        sum = 0
-        for count_line in count_lines:
-            if count_line.count_3:
-                sum += count_line.count_3
-        return sum
+    count_summary = models.DecimalField(max_digits=9, decimal_places=2, default=0)
 
     def __str__(self):
         return self.item_code
+
+    def save(self):
+        count_lines = CountLines.objects.filter(inventory__item_code=self.item_code)
+
+        sum = 0
+
+        for count_line in count_lines:
+            if count_line.count_3:
+                sum += count_line.count_3
+
+        self.count_summary = sum
+        super(Inventory, self).save()
 
 
 class CountLines(models.Model):
