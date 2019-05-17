@@ -32,8 +32,14 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'count_1', 'count_2', 'count_3',)
 
 
+
+class CountLinesInline(admin.TabularInline):
+    model = CountLines
+    extra = 1
+
 class InventoryAdmin(admin.ModelAdmin):
     list_display = ('item_code', 'count_theoretical', 'count_summary')
+    inlines = [CountLinesInline,]
 
 
 admin.site.register(CountHeader, CountHeaderAdmin)

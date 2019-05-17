@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
+from django.db.models.signals import post_save
 
 
 class CountHeader(models.Model):
@@ -57,21 +58,19 @@ class Inventory(models.Model):
     def __str__(self):
         return self.item_code
 
-    def save(self):
+    @property
+    def count_summary_calculated(self):
         count_lines = CountLines.objects.filter(inventory__item_code=self.item_code)
 
         sum = 0
-
         for count_line in count_lines:
             if count_line.count_3:
                 sum += count_line.count_3
-
-        self.count_summary = sum
-        super(Inventory, self).save()
+        return sum
 
 
 class CountLines(models.Model):
-    count_header = models.ForeignKey(CountHeader)
+    count_header = models.ForeignKey(CountHeader, on_delete=models.DO_NOTHING)
     category = models.ForeignKey(
         to=Category, on_delete=models.DO_NOTHING, related_name="count_lines"
     )
@@ -90,3 +89,16 @@ class CountLines(models.Model):
             self.count_3 = self.count_1
 
         super(CountLines, self).save()
+
+
+def update_count_summary(sender, instance, created, **kwargs):
+    count_line = instance
+
+    # Update the Inventory count summary
+    count_line.inventory.count_summary = count_line.inventory.count_summary_calculated
+    count_line.inventory.save()
+
+
+post_save.connect(update_count_summary, sender=CountLines)
+
+
