@@ -11,26 +11,24 @@ from django.conf import settings
 
 @login_required()
 def capture1(request):
-
     template = "inventit/capture.html"
 
     profile = Profile.objects.get(user=request.user)
 
-    #my allowed categories
+    # my allowed categories
     categories = Category.objects.filter(count_1=profile.team)
 
     count_header = CountHeader.objects.filter(is_active=True)
 
     count_lines = CountLines.objects.filter(Q(count_header=count_header.first()) & Q(category__in=categories))
 
-    context = {"count_headers": count_header, "lines": count_lines, "count": 1 }
+    context = {"count_headers": count_header, "lines": count_lines, "count": 1}
 
     return render(request, template, context)
 
 
 @login_required()
 def capture2(request):
-
     template = "inventit/capture.html"
 
     profile = Profile.objects.get(user=request.user)
@@ -49,7 +47,6 @@ def capture2(request):
 
 @login_required()
 def capture3(request):
-
     template = "inventit/capture.html"
 
     profile = Profile.objects.get(user=request.user)
@@ -67,27 +64,26 @@ def capture3(request):
 
 @login_required()
 def summary(request):
-
     template = "inventit/summary.html"
 
     count_header = CountHeader.objects.filter(is_active=True)
 
-    inventory = Inventory.objects.all() #CountLines.objects.filter(count_header=count_header.first())
+    inventory = Inventory.objects.all()  # CountLines.objects.filter(count_header=count_header.first())
 
     summary_count1 = (
         CountLines.objects.filter(count_header=count_header.first())
-        .filter(count_1__gte=0)
-        .count()
+            .filter(count_1__gte=0)
+            .count()
     )
     summary_count2 = (
         CountLines.objects.filter(count_header=count_header.first())
-        .filter(count_2__gte=0)
-        .count()
+            .filter(count_2__gte=0)
+            .count()
     )
     summary_count3 = (
         CountLines.objects.filter(count_header=count_header.first())
-        .filter(count_3__gte=0)
-        .count()
+            .filter(count_3__gte=0)
+            .count()
     )
     total = CountLines.objects.filter(count_header=count_header.first()).count()
 
@@ -121,6 +117,26 @@ def summary(request):
     context = {"count_headers": count_header, "inventory": inventory, "counts": counts}
 
     return render(request, template, context)
+
+
+@login_required()
+def save_count_summary(request):
+    if request.method == "POST":
+        pk = request.POST.get("pk")
+        value = request.POST.get("value")
+
+        inventory = Inventory.objects.get(pk=pk)
+        inventory.count_summary = value
+        inventory.save()
+
+        response_data = {"result": "Saved!!!"}
+
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json",
+        )
 
 
 @login_required()
@@ -164,7 +180,6 @@ def save_data(request):
 
 @login_required()
 def export(request):
-
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename="export.csv"'
 

@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^capture2', views.capture2, name='capture2'),
     url(r'^capture3', views.capture3, name='capture3'),
     url(r'^save_data/', views.save_data, name='save_data'),
+    url(r'^save_count_summary/', views.save_count_summary, name='save_count_summary'),
     url(r'^export', views.export, name='export'),
 ]

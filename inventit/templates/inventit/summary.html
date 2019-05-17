@@ -71,6 +71,7 @@
                     <th>Item Code</th>
                     <th>Count Summary</th>
                     <th>Count Theoretical</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="fbody">
@@ -83,14 +84,17 @@
                         </td>
                         <td>
                             <input id="count_summary_{{ item.pk }}" name="count_summary_{{ item.pk }}"
-                                   type="text" value="{{ item.count_summary }}">
+                                   class="change_count_summary" data-pk={{ item.pk }} type="text" value="{{ item.count_summary }}">
                         </td>
                         <td>
                             {{ item.count_theoretical }}
                         </td>
+                        <td>
+                            <p id="lbl_{{ item.pk }}" class="text-success"></p>
+                        </td>
                     </tr>
                     <tr>
-                        <td colspan="3" style="padding: 0">
+                        <td colspan="4" style="padding: 0">
                             <div id="accordion_{{ item.pk }}" class="collapse">
                                 <table class="table table-bordered">
                                     <thead>
