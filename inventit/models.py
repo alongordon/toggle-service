@@ -57,7 +57,7 @@ class Inventory(models.Model):
     def __str__(self):
         return self.item_code
 
-    def save(self):
+    def save(self, *args, **kwargs):
         count_lines = CountLines.objects.filter(inventory__item_code=self.item_code)
 
         sum = 0
@@ -67,7 +67,7 @@ class Inventory(models.Model):
                 sum += count_line.count_3
 
         self.count_summary = sum
-        super(Inventory, self).save()
+        super(Inventory, self).save(*args, **kwargs)
 
 
 class CountLines(models.Model):
