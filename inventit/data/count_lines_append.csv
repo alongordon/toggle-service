@@ -1,24 +1,24 @@
-﻿Item Code,Bin
-CLV-LH-EXH,Loose Metal 
-CSLF-1000B,Loose Metal 
-CSLF-1000N,Loose Metal 
-CSLF-1500N,Loose Metal 
-CSLT-1000N,Loose Metal 
-CSLT-1500B,Loose Metal 
-CSLT-1500MB,Loose Metal 
-HNG-RL-1000B,Loose Metal 
-HNG-RL-1500N,Loose Metal 
-EHDR-1000B,Loose Metal 
-EHDR-1500N,Loose Metal 
-CSLF-1500B,Loose Metal 
-CSLF-1500MB,Loose Metal 
-CSLT-1500N,Loose Metal 
-KLW-0925N,Loose Metal 
-MP-CHNL-1000N,Loose Metal 
-MPF-1000N,Loose Metal 
-MPT-1000N,Loose Metal 
-MPT-1500N,Loose Metal 
-MPW-1000N,Loose Metal 
+Item Code,Bin
+CLV-LH-EXH,Loose Metal
+CSLF-1000B,Loose Metal
+CSLF-1000N,Loose Metal
+CSLF-1500N,Loose Metal
+CSLT-1000N,Loose Metal
+CSLT-1500B,Loose Metal
+CSLT-1500MB,Loose Metal
+HNG-RL-1000B,Loose Metal
+HNG-RL-1500N,Loose Metal
+EHDR-1000B,Loose Metal
+EHDR-1500N,Loose Metal
+CSLF-1500B,Loose Metal
+CSLF-1500MB,Loose Metal
+CSLT-1500N,Loose Metal
+KLW-0925N,Loose Metal
+MP-CHNL-1000N,Loose Metal
+MPF-1000N,Loose Metal
+MPT-1000N,Loose Metal
+MPT-1500N,Loose Metal
+MPW-1000N,Loose Metal
 26B-7250BR,Metal Bulk 1
 26B-7250CH,Metal Bulk 1
 26B-7250N,Metal Bulk 1
@@ -381,31 +381,31 @@ P4140C         ,Bulk Hardware 2
 SL-TOOL,Bulk Hardware 2
 WP-6712,Loose Seals
 WP-676F,Loose Seals
-BHDR-2000MB,Metal on Rack next to seal 
-BHDR-2500B,Metal on Rack next to seal 
-BHDR-3000N,Metal on Rack next to seal 
-CSLF-2000MB,Metal on Rack next to seal 
-CSLF-2500B,Metal on Rack next to seal 
-CSLT-2000MB,Metal on Rack next to seal 
-CSLT-2500B,Metal on Rack next to seal 
-CSLT-3000N,Metal on Rack next to seal 
-DLS-HDR-3000B,Metal on Rack next to seal 
-HMP-2000,Metal on Rack next to seal 
-I-CHL-8-20MB,Metal on Rack next to seal 
-I-CHL-8-30B,Metal on Rack next to seal 
-I-CHL-8-30BR,Metal on Rack next to seal 
-SLHR-2500N,Metal on Rack next to seal 
-U-CHL-10-20MB,Metal on Rack next to seal 
-EHDR-2000B,Metal on Rack next to seal 
-EHDR-2500B,Metal on Rack next to seal 
-MCP-3001N,Metal on Rack next to seal 
-SLHR-3000B,Metal on Rack next to seal 
-SLHR-3000N,Metal on Rack next to seal 
-EHDR-3000B,Metal on Rack next to seal 
-DLS-HDR-2500N  ,Metal on Rack next to seal 
-I-CHL-8-30N,Metal on Rack next to seal 
-MPW-2500N,Metal on Rack next to seal 
-SLHR-2500B,Metal on Rack next to seal 
+BHDR-2000MB,Metal on Rack next to seal
+BHDR-2500B,Metal on Rack next to seal
+BHDR-3000N,Metal on Rack next to seal
+CSLF-2000MB,Metal on Rack next to seal
+CSLF-2500B,Metal on Rack next to seal
+CSLT-2000MB,Metal on Rack next to seal
+CSLT-2500B,Metal on Rack next to seal
+CSLT-3000N,Metal on Rack next to seal
+DLS-HDR-3000B,Metal on Rack next to seal
+HMP-2000,Metal on Rack next to seal
+I-CHL-8-20MB,Metal on Rack next to seal
+I-CHL-8-30B,Metal on Rack next to seal
+I-CHL-8-30BR,Metal on Rack next to seal
+SLHR-2500N,Metal on Rack next to seal
+U-CHL-10-20MB,Metal on Rack next to seal
+EHDR-2000B,Metal on Rack next to seal
+EHDR-2500B,Metal on Rack next to seal
+MCP-3001N,Metal on Rack next to seal
+SLHR-3000B,Metal on Rack next to seal
+SLHR-3000N,Metal on Rack next to seal
+EHDR-3000B,Metal on Rack next to seal
+DLS-HDR-2500N  ,Metal on Rack next to seal
+I-CHL-8-30N,Metal on Rack next to seal
+MPW-2500N,Metal on Rack next to seal
+SLHR-2500B,Metal on Rack next to seal
 SIL600,Hardware 1
 HDH-611-90,Hardware 2
 HDH-612-180,Hardware 2
