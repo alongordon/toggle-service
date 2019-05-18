@@ -99,17 +99,18 @@ def summary(request):
     summary_count2Percentage = 0
     summary_count3Percentage = 0
 
-    if summary_count1Percentage:
+    if summary_count1:
         summary_count1Percentage = round(
-            (float(summary_count1) / float(total)) * 100, 1
+            (float(summary_count1) / float(total)) * 100
         )
-    if summary_count2Percentage:
+
+    if summary_count2:
         summary_count2Percentage = round(
-            (float(summary_count2) / float(total)) * 100, 1
+            (float(summary_count2) / float(total)) * 100
         )
-    if summary_count3Percentage:
+    if summary_count3:
         summary_count3Percentage = round(
-            (float(summary_count3) / float(total)) * 100, 1
+            (float(summary_count3) / float(total)) * 100
         )
 
     counts = {
