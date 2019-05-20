@@ -49,12 +49,12 @@
                         {% endif %}
 						<td>
 							{% if count == 1 %}
-								<input id="{{line.inventory.item_code}}" name="{{line.inventory.item_code}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
+								<input id="{{line.inventory.item_code}}" name="{{line.pk}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
 							{% elif count == 2 %}
-								<input id="{{line.inventory.item_code}}" name="{{line.inventory.item_code}}" data-count="2" class="capture" type="text" value="{{line.count_2}}" name="">
+								<input id="{{line.inventory.item_code}}" name="{{line.pk}}" data-count="2" class="capture" type="text" value="{{line.count_2}}" name="">
                             {% else %}
                                 {% if line.count_1 != line.count_2 and line.count_1 and line.count_2 %}
-                                <input id="{{line.inventory.item_code}}" name="{{line.inventory.item_code}}" data-count="3" class="capture" type="text" value="{{line.count_3}}" name="">
+                                <input id="{{line.inventory.item_code}}" name="{{line.pk}}" data-count="3" class="capture" type="text" value="{{line.count_3}}" name="">
                                 {% endif %}
 							{% endif%}
 						</td>
@@ -62,7 +62,7 @@
                             {{ line.category.name }}
                         </td>
 						<td>
-							<p id="lbl{{line.inventory.item_code}}" class="text-success"></p>
+							<p id="lbl{{line.pk}}" class="text-success"></p>
 						</td>
 
 					</tr>
