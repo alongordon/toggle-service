@@ -208,11 +208,8 @@ def save_data(request):
 
 @login_required()
 def export(request):
-    # Create the zip file
-    output = StringIO.StringIO()  ## temp output file
+    output = StringIO.StringIO()
     writer = csv.writer(output, dialect='excel')
-
-    # code for writing csv file go here...
 
     inventory = export_inventory()
     countlines = export_countlines()
