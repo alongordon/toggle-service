@@ -227,7 +227,7 @@ def export(request):
     return response
 
 
-def export_inventory():
+def export_countlines():
     output = StringIO.StringIO()
     writer = csv.writer(output)
     writer.writerow(["Item Code", "Count 1", "Count 2", "Count 3", "Theoretical"])
@@ -248,7 +248,7 @@ def export_inventory():
     return output
 
 
-def export_countlines():
+def export_inventory():
     output = StringIO.StringIO()
     writer = csv.writer(output)
     writer.writerow(["Item Code", "Theoretical", "Count Summary"])
