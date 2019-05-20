@@ -1,3 +1,7 @@
+import zipfile
+
+import StringIO
+
 from django.db.models import Q
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -204,10 +208,28 @@ def save_data(request):
 
 @login_required()
 def export(request):
-    response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = 'attachment; filename="export.csv"'
+    # Create the zip file
+    output = StringIO.StringIO()  ## temp output file
+    writer = csv.writer(output, dialect='excel')
 
-    writer = csv.writer(response)
+    # code for writing csv file go here...
+
+    inventory = export_inventory()
+    countlines = export_countlines()
+
+    response = HttpResponse(content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=csv.zip'
+
+    z = zipfile.ZipFile(response, 'w')
+    z.writestr("inventory.csv", inventory.getvalue())
+    z.writestr("countlines.csv", countlines.getvalue())
+
+    return response
+
+
+def export_inventory():
+    output = StringIO.StringIO()
+    writer = csv.writer(output)
     writer.writerow(["Item Code", "Count 1", "Count 2", "Count 3", "Theoretical"])
 
     count_header = CountHeader.objects.filter(is_active=True)
@@ -215,12 +237,29 @@ def export(request):
     for countLine in CountLines.objects.filter(count_header=count_header.first()):
         writer.writerow(
             [
-                countLine.item_code,
+                countLine.inventory.item_code,
                 countLine.count_1,
                 countLine.count_2,
                 countLine.count_3,
-                countLine.count_theoretical,
+                countLine.inventory.count_theoretical,
             ]
         )
 
-    return response
+    return output
+
+
+def export_countlines():
+    output = StringIO.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["Item Code", "Theoretical", "Count Summary"])
+
+    for inventory in Inventory.objects.all():
+        writer.writerow(
+            [
+                inventory.item_code,
+                inventory.count_theoretical,
+                inventory.count_summary
+            ]
+        )
+
+    return output
