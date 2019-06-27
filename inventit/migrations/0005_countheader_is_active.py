@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('inventit', '0004_auto_20190125_1446'),
-    ]
+    dependencies = [("inventit", "0004_auto_20190125_1446")]
 
     operations = [
         migrations.AddField(
-            model_name='countheader',
-            name='is_active',
+            model_name="countheader",
+            name="is_active",
             field=models.BooleanField(default=False),
-        ),
+        )
     ]

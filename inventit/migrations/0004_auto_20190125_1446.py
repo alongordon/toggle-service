@@ -8,30 +8,45 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('inventit', '0003_auto_20190125_1427'),
-    ]
+    dependencies = [("inventit", "0003_auto_20190125_1427")]
 
     operations = [
         migrations.AddField(
-            model_name='countlines',
-            name='category',
-            field=models.OneToOneField(default=0, on_delete=django.db.models.deletion.DO_NOTHING, related_name='count_lines', to='inventit.Category'),
+            model_name="countlines",
+            name="category",
+            field=models.OneToOneField(
+                default=0,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="count_lines",
+                to="inventit.Category",
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='category',
-            name='count_1',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='categories_count_1', to='inventit.Team'),
+            model_name="category",
+            name="count_1",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="categories_count_1",
+                to="inventit.Team",
+            ),
         ),
         migrations.AlterField(
-            model_name='category',
-            name='count_2',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='categories_count_2', to='inventit.Team'),
+            model_name="category",
+            name="count_2",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="categories_count_2",
+                to="inventit.Team",
+            ),
         ),
         migrations.AlterField(
-            model_name='category',
-            name='count_3',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='categories_count_3', to='inventit.Team'),
+            model_name="category",
+            name="count_3",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="categories_count_3",
+                to="inventit.Team",
+            ),
         ),
     ]

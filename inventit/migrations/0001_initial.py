@@ -10,28 +10,52 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CountHeader',
+            name="CountHeader",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('count_date', models.DateTimeField(auto_now_add=True, db_index=True)),
-                ('description', models.TextField(null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("count_date", models.DateTimeField(auto_now_add=True, db_index=True)),
+                ("description", models.TextField(null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='CountLines',
+            name="CountLines",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('item_code', models.CharField(max_length=100, null=True)),
-                ('count_1', models.DecimalField(decimal_places=2, max_digits=9)),
-                ('count_2', models.DecimalField(decimal_places=2, max_digits=9)),
-                ('count_3', models.DecimalField(decimal_places=2, max_digits=9)),
-                ('count_theoretical', models.DecimalField(decimal_places=2, max_digits=9)),
-                ('count_header', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='inventit.CountHeader')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("item_code", models.CharField(max_length=100, null=True)),
+                ("count_1", models.DecimalField(decimal_places=2, max_digits=9)),
+                ("count_2", models.DecimalField(decimal_places=2, max_digits=9)),
+                ("count_3", models.DecimalField(decimal_places=2, max_digits=9)),
+                (
+                    "count_theoretical",
+                    models.DecimalField(decimal_places=2, max_digits=9),
+                ),
+                (
+                    "count_header",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="inventit.CountHeader",
+                    ),
+                ),
             ],
         ),
     ]

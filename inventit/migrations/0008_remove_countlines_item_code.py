@@ -7,13 +7,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('inventit', '0007_auto_20190516_1840'),
-    ]
+    dependencies = [("inventit", "0007_auto_20190516_1840")]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='countlines',
-            name='item_code',
-        ),
-    ]
+    operations = [migrations.RemoveField(model_name="countlines", name="item_code")]

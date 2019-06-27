@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('inventit', '0008_remove_countlines_item_code'),
-    ]
+    dependencies = [("inventit", "0008_remove_countlines_item_code")]
 
     operations = [
         migrations.AddField(
-            model_name='inventory',
-            name='count_summary',
+            model_name="inventory",
+            name="count_summary",
             field=models.DecimalField(decimal_places=2, default=0, max_digits=9),
-        ),
+        )
     ]

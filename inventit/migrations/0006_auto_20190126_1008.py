@@ -8,14 +8,16 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('inventit', '0005_countheader_is_active'),
-    ]
+    dependencies = [("inventit", "0005_countheader_is_active")]
 
     operations = [
         migrations.AlterField(
-            model_name='countlines',
-            name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='count_lines', to='inventit.Category'),
-        ),
+            model_name="countlines",
+            name="category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="count_lines",
+                to="inventit.Category",
+            ),
+        )
     ]

@@ -13,7 +13,9 @@ class Command(BaseCommand):
         Inventory.objects.all().delete()
         Category.objects.all().delete()
 
-        with open(os.path.join(settings.ROOT_PATH, '../inventit/data/inventory.csv'), 'r') as file:
+        with open(
+            os.path.join(settings.ROOT_PATH, "../inventit/data/inventory.csv"), "r"
+        ) as file:
             rows = csv.reader(file, delimiter=",", quotechar='"')
 
             for row in rows:
@@ -23,15 +25,21 @@ class Command(BaseCommand):
 
         # CATEGORIES
         team = Team.objects.all().first()
-        with open(os.path.join(settings.ROOT_PATH, '../inventit/data/categories.csv'), 'r') as file:
+        with open(
+            os.path.join(settings.ROOT_PATH, "../inventit/data/categories.csv"), "r"
+        ) as file:
             rows = csv.reader(file, delimiter=",", quotechar='"')
 
             for row in rows:
                 if rows.line_num == 1:
                     continue
-                Category.objects.create(name=row[0], count_1=team, count_2=team, count_3=team)
+                Category.objects.create(
+                    name=row[0], count_1=team, count_2=team, count_3=team
+                )
 
-        with open(os.path.join(settings.ROOT_PATH, '../inventit/data/count_lines.csv'), 'r') as file:
+        with open(
+            os.path.join(settings.ROOT_PATH, "../inventit/data/count_lines.csv"), "r"
+        ) as file:
             rows = csv.reader(file, delimiter=",", quotechar='"')
             count_header = CountHeader.objects.filter(is_active=True).first()
 
@@ -42,7 +50,9 @@ class Command(BaseCommand):
                 # print "item_code: " + row[0]
                 # print "count_theoretical:  " + row[1]
 
-                inventory = Inventory.objects.filter(item_code=row[0].replace(" ", "")).first()
+                inventory = Inventory.objects.filter(
+                    item_code=row[0].replace(" ", "")
+                ).first()
 
                 if not inventory:
                     print("cannot find inventory -- ", row[0])
@@ -53,7 +63,9 @@ class Command(BaseCommand):
                 if not category:
                     print("cannot find category -- ", row[1])
                     continue
-                db_row = CountLines(category=category, inventory=inventory, count_header=count_header)
+                db_row = CountLines(
+                    category=category, inventory=inventory, count_header=count_header
+                )
                 db_row.save()
 
         # dump entire table

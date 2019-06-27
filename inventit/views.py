@@ -104,18 +104,12 @@ def summary(request):
     summary_count3Percentage = 0
 
     if summary_count1:
-        summary_count1Percentage = round(
-            (float(summary_count1) / float(total)) * 100
-        )
+        summary_count1Percentage = round((float(summary_count1) / float(total)) * 100)
 
     if summary_count2:
-        summary_count2Percentage = round(
-            (float(summary_count2) / float(total)) * 100
-        )
+        summary_count2Percentage = round((float(summary_count2) / float(total)) * 100)
     if summary_count3:
-        summary_count3Percentage = round(
-            (float(summary_count3) / float(total)) * 100
-        )
+        summary_count3Percentage = round((float(summary_count3) / float(total)) * 100)
 
     counts = {
         "summary_count1": summary_count1,
@@ -183,14 +177,18 @@ def save_data(request):
             line.update(count_3=count)
 
         # Update the Inventory count summary
-        count_lines = CountLines.objects.filter(inventory__item_code=line.first().inventory.item_code)
+        count_lines = CountLines.objects.filter(
+            inventory__item_code=line.first().inventory.item_code
+        )
 
         sum = 0
         for count_line in count_lines:
             if count_line.count_3:
                 sum += count_line.count_3
 
-        inventory = Inventory.objects.filter(item_code=line.first().inventory.item_code).first()
+        inventory = Inventory.objects.filter(
+            item_code=line.first().inventory.item_code
+        ).first()
 
         if inventory:
             inventory.count_summary = sum
@@ -209,15 +207,15 @@ def save_data(request):
 @login_required()
 def export(request):
     output = StringIO.StringIO()
-    writer = csv.writer(output, dialect='excel')
+    writer = csv.writer(output, dialect="excel")
 
     inventory = export_inventory()
     countlines = export_countlines()
 
-    response = HttpResponse(content_type='application/zip')
-    response['Content-Disposition'] = 'attachment; filename=csv.zip'
+    response = HttpResponse(content_type="application/zip")
+    response["Content-Disposition"] = "attachment; filename=csv.zip"
 
-    z = zipfile.ZipFile(response, 'w')
+    z = zipfile.ZipFile(response, "w")
     z.writestr("inventory.csv", inventory.getvalue())
     z.writestr("countlines.csv", countlines.getvalue())
 
@@ -252,11 +250,7 @@ def export_inventory():
 
     for inventory in Inventory.objects.all():
         writer.writerow(
-            [
-                inventory.item_code,
-                inventory.count_theoretical,
-                inventory.count_summary
-            ]
+            [inventory.item_code, inventory.count_theoretical, inventory.count_summary]
         )
 
     return output

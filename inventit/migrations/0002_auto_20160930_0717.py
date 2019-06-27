@@ -7,29 +7,33 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('inventit', '0001_initial'),
-    ]
+    dependencies = [("inventit", "0001_initial")]
 
     operations = [
         migrations.AlterField(
-            model_name='countlines',
-            name='count_1',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=9, null=True),
+            model_name="countlines",
+            name="count_1",
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=9, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='countlines',
-            name='count_2',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=9, null=True),
+            model_name="countlines",
+            name="count_2",
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=9, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='countlines',
-            name='count_3',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=9, null=True),
+            model_name="countlines",
+            name="count_3",
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=9, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='countlines',
-            name='item_code',
+            model_name="countlines",
+            name="item_code",
             field=models.CharField(default=1, max_length=100),
             preserve_default=False,
         ),

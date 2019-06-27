@@ -11,53 +11,97 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('inventit', '0002_auto_20160930_0717'),
+        ("inventit", "0002_auto_20160930_0717"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Profile',
+            name="Profile",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                )
             ],
         ),
         migrations.CreateModel(
-            name='Team',
+            name="Team",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.AddField(
-            model_name='profile',
-            name='team',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='profiles', to='inventit.Team'),
+            model_name="profile",
+            name="team",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="profiles",
+                to="inventit.Team",
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, related_name='profiles', to=settings.AUTH_USER_MODEL),
+            model_name="profile",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="profiles",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='category',
-            name='count_1',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, related_name='categories_count_1', to='inventit.Team'),
+            model_name="category",
+            name="count_1",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="categories_count_1",
+                to="inventit.Team",
+            ),
         ),
         migrations.AddField(
-            model_name='category',
-            name='count_2',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, related_name='categories_count_2', to='inventit.Team'),
+            model_name="category",
+            name="count_2",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="categories_count_2",
+                to="inventit.Team",
+            ),
         ),
         migrations.AddField(
-            model_name='category',
-            name='count_3',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, related_name='categories_count_3', to='inventit.Team'),
+            model_name="category",
+            name="count_3",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="categories_count_3",
+                to="inventit.Team",
+            ),
         ),
     ]

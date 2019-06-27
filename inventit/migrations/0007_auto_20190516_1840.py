@@ -8,27 +8,38 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('inventit', '0006_auto_20190126_1008'),
-    ]
+    dependencies = [("inventit", "0006_auto_20190126_1008")]
 
     operations = [
         migrations.CreateModel(
-            name='Inventory',
+            name="Inventory",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('item_code', models.CharField(max_length=100)),
-                ('count_theoretical', models.DecimalField(decimal_places=2, max_digits=9)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("item_code", models.CharField(max_length=100)),
+                (
+                    "count_theoretical",
+                    models.DecimalField(decimal_places=2, max_digits=9),
+                ),
             ],
         ),
-        migrations.RemoveField(
-            model_name='countlines',
-            name='count_theoretical',
-        ),
+        migrations.RemoveField(model_name="countlines", name="count_theoretical"),
         migrations.AddField(
-            model_name='countlines',
-            name='inventory',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.DO_NOTHING, related_name='count_lines', to='inventit.Inventory'),
+            model_name="countlines",
+            name="inventory",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="count_lines",
+                to="inventit.Inventory",
+            ),
             preserve_default=False,
         ),
     ]
