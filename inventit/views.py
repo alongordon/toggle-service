@@ -10,7 +10,6 @@ from inventit.models import *
 import json
 from decimal import *
 import csv
-from django.conf import settings
 
 
 @login_required()
