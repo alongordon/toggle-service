@@ -1,21 +1,19 @@
-﻿name
-Loose Metal
-Metal Bulk 1
-Metal Bulk 2
-Metal Bulk 3
-Metal Bulk 4
-Metal Bulk 5
-Metal Bulk 6
-Patch Fitting
-Bulk Seals
-Bulk Hardware 1
-Bulk Hardware 2
-Loose Seals
-Metal on Rack next to seal
-Hardware 1
-Hardware 2
-Hardware 3
-Hardware 4
-Glass Shelves
-Dispatch Office
-Showroom
+﻿NAME,COUNT 1,COUNT 2,COUNT 3
+Loose Metal 1,Team 1,Team 6,Team 2
+Metal Bulk 1,Team 2,Team 5,Team 3
+Metal Bulk 2,Team 3,Team 4,Team 1
+Metal Bulk 3,Team 4,Team 3,Team 5
+Metal Bulk 4,Team 5,Team 2,Team 6
+Metal Bulk 5,Team 6,Team 1,Team 4
+Metal Bulk 6,Team 1,Team 6,Team 2
+Patch Fitting + Glass Shelves,Team 2,Team 5,Team 3
+Bulk Seals,Team 3,Team 4,Team 1
+Bulk Hardware 1,Team 4,Team 3,Team 5
+Bulk Hardware 2,Team 5,Team 2,Team 6
+Loose Seals,Team 6,Team 1,Team 4
+Loose Metal 2,Team 1,Team 6,Team 2
+Hardware 1,Team 2,Team 5,Team 3
+Hardware 2,Team 3,Team 4,Team 5
+Hardware 3,Team 4,Team 3,Team 6
+Hardware 4,Team 5,Team 2,Team 1
+Dispatch Area,Team 6,Team 1,Team 4
