@@ -35,7 +35,9 @@
             <a class="navbar-brand" href="#">Toggle</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="{% url "summary" %}">Summary</a></li>
+            {% if request.user.is_superuser %}
+                <li><a href="{% url "summary" %}">Summary</a></li>
+            {% endif %}
             <li><a href="{% url "capture1" %}">Count 1</a></li>
             <li><a href="{% url "capture2" %}">Count 2</a></li>
             <li><a href="{% url "capture3" %}">Count 3</a></li>
