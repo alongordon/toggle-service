@@ -30,7 +30,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ("user", "team")
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(ImportExportModelAdmin):
     list_display = ("name", "count_1", "count_2", "count_3")
 
 
@@ -39,7 +39,7 @@ class CountLinesInline(admin.TabularInline):
     extra = 1
 
 
-class InventoryAdmin(admin.ModelAdmin):
+class InventoryAdmin(ImportExportModelAdmin):
     list_display = ("item_code", "count_theoretical", "count_summary")
     inlines = [CountLinesInline]
 
