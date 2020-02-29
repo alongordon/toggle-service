@@ -1,16 +1,18 @@
 from .models import *
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 
 class CountHeaderAdmin(admin.ModelAdmin):
-    list_display = ('count_date', 'description', 'is_active')
-    list_filter = ('is_active',)
+    list_display = ("count_date", "description", "is_active")
+    list_filter = ("is_active",)
 
 
-class CountLinesAdmin(admin.ModelAdmin):
-    list_display = ('inventory', 'category', 'count_1', 'count_2', 'count_3',)
-    list_filter = ('count_header__description', 'category')
-    search_fields = ['inventory__item_code']
+class CountLinesAdmin(ImportExportModelAdmin):
+    list_display = ("inventory", "category", "count_1", "count_2", "count_3")
+    list_filter = ("count_header__description", "category")
+    search_fields = ["inventory__item_code"]
     save_as = True
 
 
@@ -20,26 +22,31 @@ class ProfileInline(admin.TabularInline):
 
 
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ("name",)
     inlines = [ProfileInline]
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'team',)
+    list_display = ("user", "team")
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'count_1', 'count_2', 'count_3',)
-
+    list_display = ("name", "count_1", "count_2", "count_3")
 
 
 class CountLinesInline(admin.TabularInline):
     model = CountLines
     extra = 1
 
+
 class InventoryAdmin(admin.ModelAdmin):
-    list_display = ('item_code', 'count_theoretical', 'count_summary')
-    inlines = [CountLinesInline,]
+    list_display = ("item_code", "count_theoretical", "count_summary")
+    inlines = [CountLinesInline]
+
+
+class CountLinesResource(resources.ModelResource):
+    class Meta:
+        model = CountLines
 
 
 admin.site.register(CountHeader, CountHeaderAdmin)
