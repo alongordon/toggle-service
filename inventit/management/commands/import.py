@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
         CountLines.objects.all().delete()
         Inventory.objects.all().delete()
-        Category.objects.all().delete()
+        # Category.objects.all().delete()
 
         with open(
             os.path.join(settings.ROOT_PATH, "../inventit/data/inventory.csv"), "r"
@@ -25,18 +25,18 @@ class Command(BaseCommand):
                 Inventory.objects.create(item_code=row[0], count_theoretical=row[1])
 
         # CATEGORIES
-        team = Team.objects.all().first()
-        with open(
-            os.path.join(settings.ROOT_PATH, "../inventit/data/categories.csv"), "r"
-        ) as file:
-            rows = csv.reader(file, delimiter=",", quotechar='"')
-
-            for row in rows:
-                if rows.line_num == 1:
-                    continue
-                Category.objects.create(
-                    name=row[0], count_1=team, count_2=team, count_3=team
-                )
+        # team = Team.objects.all().first()
+        # with open(
+        #     os.path.join(settings.ROOT_PATH, "../inventit/data/categories.csv"), "r"
+        # ) as file:
+        #     rows = csv.reader(file, delimiter=",", quotechar='"')
+        #
+        #     for row in rows:
+        #         if rows.line_num == 1:
+        #             continue
+        #         Category.objects.create(
+        #             name=row[0], count_1=team, count_2=team, count_3=team
+        #         )
 
         with open(
             os.path.join(settings.ROOT_PATH, "../inventit/data/count_lines.csv"), "r"
