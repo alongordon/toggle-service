@@ -17,6 +17,9 @@ class CountHeader(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
+    count_1_sign_off = models.BooleanField(default=False)
+    count_2_sign_off = models.BooleanField(default=False)
+    count_3_sign_off = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

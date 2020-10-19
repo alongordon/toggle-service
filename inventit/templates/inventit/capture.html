@@ -4,14 +4,17 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="well">
+		<div class="well" style="position: relative">
 			<h1>Capture Details for Count {{count}}</h1>
 			<p>
 				{% for count_header in count_headers %}
 				  {{count_header.count_date}} - {{count_header.description}} <br />
 				{% endfor %}
 			</p>
-		</div>	
+            <div class="col-md-6" style="position: absolute; right: 0; top: 40px">
+                <a class="btn btn-primary" onclick="signOff({{ count }})">Sign off as complete</a>
+            </div>
+		</div>
 	</div>
 </div>
 
@@ -72,4 +75,15 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+    async function signOff(count){
+        if (window.confirm("By clicking OK you are confirming that this count is complete and all\n" +
+            "items without a count value should be set to zero")) {
+            await fetch(`/sign_off/${count}/`, {
+                method: 'POST',
+                credentials: "same-origin",
+            })
+        }
+    }
+</script>
 {% endblock %}
