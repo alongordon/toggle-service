@@ -14,8 +14,10 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.urls import path
 from django.conf.urls import url
 from django.contrib import admin
+
 from inventit import views
 
 urlpatterns = [
@@ -27,4 +29,5 @@ urlpatterns = [
     url(r'^save_data/', views.save_data, name='save_data'),
     url(r'^save_count_summary/', views.save_count_summary, name='save_count_summary'),
     url(r'^export', views.export, name='export'),
+    path('sign_off/<int:count>/', views.sign_off, name='sign_off'),
 ]

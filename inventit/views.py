@@ -4,6 +4,7 @@ import io
 
 from django.db.models import Q
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from inventit.models import *
@@ -202,6 +203,38 @@ def save_data(request):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json",
         )
+
+
+@csrf_exempt
+@login_required()
+def sign_off(request, count):
+    profile = Profile.objects.get(user=request.user)
+    count_header = CountHeader.objects.filter(is_active=True)
+    team = profile.team
+    if count == 1:
+        categories = Category.objects.filter(count_1=team)
+        count_lines = CountLines.objects.filter(
+            Q(count_header=count_header.first()) & Q(category__in=categories)
+        )
+        count_lines.filter(count_1__isnull=True).update(count_1=0)
+        team.count_1_sign_off = True
+    elif count == 2:
+        categories = Category.objects.filter(count_2=team)
+        count_lines = CountLines.objects.filter(
+            Q(count_header=count_header.first()) & Q(category__in=categories)
+        )
+        count_lines.filter(count_2__isnull=True).update(count_2=0)
+        team.count_2_sign_off = True
+    else:
+        categories = Category.objects.filter(count_3=team)
+        count_lines = CountLines.objects.filter(
+            Q(count_header=count_header.first()) & Q(category__in=categories)
+        )
+        count_lines.filter(count_3__isnull=True).update(count_3=0)
+        team.count_3_sign_off = True
+
+    team.save()
+    return HttpResponse(status=200)
 
 
 @login_required()
