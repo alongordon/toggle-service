@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="well" style="position: relative">
-			<h1>Capture Details for Count {{count}}</h1>
+			<h1>Count {{count}} {% if team %}for {{ team }} {% endif %}</h1>
 			<p>
 				{% for count_header in count_headers %}
 				  {{count_header.count_date}} - {{count_header.description}} <br />
@@ -83,6 +83,7 @@
                 method: 'POST',
                 credentials: "same-origin",
             })
+            location.reload();
         }
     }
 </script>

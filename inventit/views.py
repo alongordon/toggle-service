@@ -29,7 +29,7 @@ def capture1(request):
         Q(count_header=count_header.first()) & Q(category__in=categories)
     )
 
-    context = {"count_headers": count_header, "lines": count_lines, "count": 1}
+    context = {"count_headers": count_header, "lines": count_lines, "count": 1, "team": profile.team.name}
 
     return render(request, template, context)
 
@@ -49,7 +49,7 @@ def capture2(request):
         Q(count_header=count_header.first()) & Q(category__in=categories)
     )
 
-    context = {"count_headers": count_header, "lines": count_lines, "count": 2}
+    context = {"count_headers": count_header, "lines": count_lines, "count": 2, "team": profile.team.name}
 
     return render(request, template, context)
 
@@ -68,7 +68,7 @@ def capture3(request):
     count_lines = CountLines.objects.filter(
         Q(count_header=count_header.first()) & Q(category__in=categories)
     )
-    context = {"count_headers": count_header, "lines": count_lines, "count": 3}
+    context = {"count_headers": count_header, "lines": count_lines, "count": 3, "team": profile.team.name}
 
     return render(request, template, context)
 

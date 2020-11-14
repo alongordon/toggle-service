@@ -30,7 +30,7 @@
 </head>
 <body>
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
+    <div class="container-fluid" style="display: flex; align-items: center;">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Toggle</a>
         </div>
@@ -41,7 +41,12 @@
             <li><a href="{% url "capture1" %}">Count 1</a></li>
             <li><a href="{% url "capture2" %}">Count 2</a></li>
             <li><a href="{% url "capture3" %}">Count 3</a></li>
+            <li><a href="/admin/">Admin</a></li>
         </ul>
+
+        <span style="display: flex; flex: 1; gap: 10px; justify-content: end;">
+            logged in as {{ user.username }}<a href="/admin/logout/">sign out</a>
+        </span>
     </div>
 </nav>
 <div class="container">
