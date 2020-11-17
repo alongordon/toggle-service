@@ -25,7 +25,7 @@ SECRET_KEY = "=07x$)_m#hase&(wd9cuup#zq%q_u-9g*e$^qz!0a-4w8lro-e"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -122,6 +122,8 @@ LOGIN_URL = "/admin"
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 ROOT_PATH = os.path.split(os.path.abspath(__file__))[0]
 # COUNT_HEADER_ID=2 Moved to Count Header Model, is_active :)
 
