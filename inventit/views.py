@@ -2,7 +2,7 @@ import zipfile
 
 import io
 
-from django.db.models import Q
+from django.db.models import Q, F, Subquery
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -81,9 +81,11 @@ def summary(request):
 
     count_header = CountHeader.objects.filter(is_active=True)
 
-    inventory = (
-        Inventory.objects.all()
-    )  # CountLines.objects.filter(count_header=count_header.first())
+    inventory = Inventory.objects.all() \
+        .annotate(count_variance=F('count_summary') - F('count_theoretical')) \
+        .annotate(cost_variance=F('count_variance') * F('cost'))
+
+    cost_variance_sum = inventory.aggregate(Sum('cost_variance'))['cost_variance__sum']
 
     summary_count1 = (
         CountLines.objects.filter(count_header=count_header.first())
@@ -127,7 +129,8 @@ def summary(request):
 
     context = {
         "count_headers": count_header, "inventory": inventory,
-        "counts": counts, "counts_sign_off": counts_sign_off
+        "counts": counts, "counts_sign_off": counts_sign_off,
+        "cost_variance_sum": cost_variance_sum
     }
 
     return render(request, template, context)

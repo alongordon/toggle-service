@@ -69,6 +69,10 @@
         </div>
     </div>
 
+    <div>
+        <p>Sum of cost variance {{ cost_variance_sum }}</p>
+    </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="well">
@@ -93,6 +97,8 @@
                     <th>Item Code</th>
                     <th>Count Summary</th>
                     <th>Count Theoretical</th>
+                    <th>Count Variance</th>
+                    <th>Cost Variance</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -110,6 +116,12 @@
                         </td>
                         <td>
                             {{ item.count_theoretical }}
+                        </td>
+                        <td>
+                            {{ item.count_variance }}
+                        </td>
+                        <td>
+                            {{ item.cost_variance }}
                         </td>
                         <td>
                             <p id="lbl_{{ item.pk }}" class="text-success"></p>

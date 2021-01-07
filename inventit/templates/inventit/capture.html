@@ -43,14 +43,9 @@
 				</thead> 
 			<tbody id="fbody">
 				{% for line in lines %}
+                    {% if count == 3 and line.count_1 and line.count_2 and line.count_1 != line.count_2 or count != 3 %}
 					<tr>
-                        {% if count != 3 %}
-						    <td>{{line.inventory.item_code}}</td>
-                        {% else %}
-                            {% if line.count_1 != line.count_2%}
-                                <td>{{line.inventory.item_code}}</td>
-                            {% endif %}
-                        {% endif %}
+                        <td>{{line.inventory.item_code}}</td>
                         <td>
                             {% if line.inventory.description %}
                                 {{ line.inventory.description }}
@@ -75,6 +70,7 @@
 						</td>
 
 					</tr>
+                    {% endif %}
 				{% endfor %}
 			</tbody> 
 		</table>

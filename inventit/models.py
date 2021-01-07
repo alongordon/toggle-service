@@ -11,6 +11,10 @@ class CountHeader(models.Model):
     description = models.TextField(null=True)
     is_active = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = "Count_Header"
+        verbose_name_plural = "Count_Header"
+
     def __str__(self):
         return self.description
 
@@ -49,6 +53,10 @@ class Category(models.Model):
         to=Team, on_delete=models.DO_NOTHING, related_name="categories_count_3"
     )
 
+    class Meta:
+        verbose_name = "Bin"
+        verbose_name_plural = "Bins"
+
     def __str__(self):
         return self.name
 
@@ -57,8 +65,12 @@ class Inventory(models.Model):
     item_code = models.CharField(max_length=100)
     count_theoretical = models.DecimalField(max_digits=9, decimal_places=2)
     count_summary = models.DecimalField(max_digits=9, decimal_places=2, default=0)
-    cost = models.PositiveIntegerField(default=0, blank=True)
+    cost = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     description = models.CharField(max_length=250, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Inventory"
+        verbose_name_plural = "Inventory"
 
     def __str__(self):
         return self.item_code
@@ -85,6 +97,10 @@ class CountLines(models.Model):
     count_1 = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     count_2 = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     count_3 = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Count_Lines"
+        verbose_name_plural = "Count_Lines"
 
     def __str__(self):
         return "%s" % self.inventory.item_code
