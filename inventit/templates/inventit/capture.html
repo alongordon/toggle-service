@@ -35,6 +35,7 @@
 			<thead> 
 				<tr>
 					<th>Item Code</th>
+                    <th>Description</th>
 					<th>Count {{count}}</th>
 					<th>Bin</th>
                     <th>Result</th>
@@ -50,6 +51,11 @@
                                 <td>{{line.inventory.item_code}}</td>
                             {% endif %}
                         {% endif %}
+                        <td>
+                            {% if line.inventory.description %}
+                                {{ line.inventory.description }}
+                            {% endif %}
+                        </td>
 						<td>
 							{% if count == 1 %}
 								<input id="{{line.inventory.item_code}}" name="{{line.pk}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">

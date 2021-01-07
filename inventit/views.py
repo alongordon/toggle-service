@@ -77,6 +77,8 @@ def capture3(request):
 def summary(request):
     template = "inventit/summary.html"
 
+    counts_sign_off = Team.objects.all().values_list('name', 'count_1_sign_off', 'count_2_sign_off', 'count_3_sign_off')
+
     count_header = CountHeader.objects.filter(is_active=True)
 
     inventory = (
@@ -120,9 +122,13 @@ def summary(request):
         "summary_count2Percentage": summary_count2Percentage,
         "summary_count3Percentage": summary_count3Percentage,
         "total": total,
+        "counts_sign_off": counts_sign_off
     }
 
-    context = {"count_headers": count_header, "inventory": inventory, "counts": counts}
+    context = {
+        "count_headers": count_header, "inventory": inventory,
+        "counts": counts, "counts_sign_off": counts_sign_off
+    }
 
     return render(request, template, context)
 
@@ -239,7 +245,7 @@ def sign_off(request, count):
 
 @login_required()
 def export(request):
-    output = io.StringIO.StringIO()
+    output = io.StringIO()
     writer = csv.writer(output, dialect="excel")
 
     inventory = export_inventory()
@@ -256,7 +262,7 @@ def export(request):
 
 
 def export_countlines():
-    output = io.StringIO.StringIO()
+    output = io.StringIO()
     writer = csv.writer(output)
     writer.writerow(["Item Code", "Count 1", "Count 2", "Count 3", "Theoretical"])
 
@@ -277,7 +283,7 @@ def export_countlines():
 
 
 def export_inventory():
-    output = io.StringIO.StringIO()
+    output = io.StringIO()
     writer = csv.writer(output)
     writer.writerow(["Item Code", "Theoretical", "Count Summary"])
 

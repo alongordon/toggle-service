@@ -57,6 +57,8 @@ class Inventory(models.Model):
     item_code = models.CharField(max_length=100)
     count_theoretical = models.DecimalField(max_digits=9, decimal_places=2)
     count_summary = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+    cost = models.PositiveIntegerField(default=0, blank=True)
+    description = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
         return self.item_code
