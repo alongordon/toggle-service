@@ -1,7 +1,7 @@
 from .models import *
 from django.contrib import admin
 from django.contrib import messages
-from import_export import resources
+from import_export import resources, fields
 from import_export.admin import ImportExportModelAdmin
 
 
@@ -10,12 +10,22 @@ class CountHeaderAdmin(admin.ModelAdmin):
     list_filter = ("is_active",)
 
 
+class CountLinesResource(resources.ModelResource):
+    item_code = fields.Field(attribute='inventory__item_code')
+
+    class Meta:
+        model = CountLines
+        exclude = ('inventory', )
+        export_order = ('id', 'count_header', 'category', 'item_code', 'count_1', 'count_2', 'count_3')
+
+
 class CountLinesAdmin(ImportExportModelAdmin):
     list_display = ("inventory", "category", "count_1", "count_2", "count_3")
     list_filter = ("count_header__description", "category")
     search_fields = ["inventory__item_code"]
     save_as = True
     actions = ['delete_all']
+    resource_class = CountLinesResource
 
     def delete_all(self, request, queryset):
         CountLines.objects.all().delete()
@@ -80,11 +90,6 @@ class InventoryAdmin(ImportExportModelAdmin):
                 return response
 
         return super(InventoryAdmin, self).changelist_view(request, extra_context)
-
-
-class CountLinesResource(resources.ModelResource):
-    class Meta:
-        model = CountLines
 
 
 admin.site.register(CountHeader, CountHeaderAdmin)
