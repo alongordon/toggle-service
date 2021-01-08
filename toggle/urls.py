@@ -19,6 +19,9 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from inventit import views
+from toggle.custom_admin import CustomAdmin
+
+admin.site.login = CustomAdmin().login
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

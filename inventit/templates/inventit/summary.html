@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load extras %}
+{% load static %}
 
 {% block content %}
 
@@ -13,6 +14,27 @@
                 </small>
             </h1>
         </div>
+    </div>
+    <div>
+        <section style="display: grid; grid-template-columns: repeat(4, 70px);">
+            <span></span>
+            <span>Count 1</span>
+            <span>Count 2</span>
+            <span>Count 3</span>
+        </section>
+
+        {% for count_sign_off in counts_sign_off %}
+            <div style="margin: 5px 0; display: grid; grid-template-columns: repeat(4, 70px);">
+              <span>{{ count_sign_off.0 }}</span>
+              {% for team_sign_off in count_sign_off|slice:'1:' %}
+                  {% if team_sign_off %}
+                    <img src="{% static "images/done.png" %}" alt="Done" height="20px" width="20px">
+                  {% else %}
+                    <img src="{% static "images/undone.png" %}" alt="Undone" height="20px" width="20px">
+                  {% endif %}
+              {% endfor %}
+            </div>
+        {% endfor %}
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -47,6 +69,10 @@
         </div>
     </div>
 
+    <div>
+        <p>Sum of cost variance {{ cost_variance_sum }}</p>
+    </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="well">
@@ -71,6 +97,8 @@
                     <th>Item Code</th>
                     <th>Count Summary</th>
                     <th>Count Theoretical</th>
+                    <th>Count Variance</th>
+                    <th>Cost Variance</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -88,6 +116,12 @@
                         </td>
                         <td>
                             {{ item.count_theoretical }}
+                        </td>
+                        <td>
+                            {{ item.count_variance }}
+                        </td>
+                        <td>
+                            {{ item.cost_variance }}
                         </td>
                         <td>
                             <p id="lbl_{{ item.pk }}" class="text-success"></p>

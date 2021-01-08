@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="well" style="position: relative">
-			<h1>Capture Details for Count {{count}}</h1>
+			<h1>Count {{count}} {% if team %}for {{ team }} {% endif %}</h1>
 			<p>
 				{% for count_header in count_headers %}
 				  {{count_header.count_date}} - {{count_header.description}} <br />
@@ -35,6 +35,7 @@
 			<thead> 
 				<tr>
 					<th>Item Code</th>
+                    <th>Description</th>
 					<th>Count {{count}}</th>
 					<th>Bin</th>
                     <th>Result</th>
@@ -42,14 +43,14 @@
 				</thead> 
 			<tbody id="fbody">
 				{% for line in lines %}
+                    {% if count == 3 and line.count_1 and line.count_2 and line.count_1 != line.count_2 or count != 3 %}
 					<tr>
-                        {% if count != 3 %}
-						    <td>{{line.inventory.item_code}}</td>
-                        {% else %}
-                            {% if line.count_1 != line.count_2%}
-                                <td>{{line.inventory.item_code}}</td>
+                        <td>{{line.inventory.item_code}}</td>
+                        <td>
+                            {% if line.inventory.description %}
+                                {{ line.inventory.description }}
                             {% endif %}
-                        {% endif %}
+                        </td>
 						<td>
 							{% if count == 1 %}
 								<input id="{{line.inventory.item_code}}" name="{{line.pk}}" data-count="1" class="capture" type="text" value="{{line.count_1}}" name="">
@@ -69,6 +70,7 @@
 						</td>
 
 					</tr>
+                    {% endif %}
 				{% endfor %}
 			</tbody> 
 		</table>
@@ -83,6 +85,7 @@
                 method: 'POST',
                 credentials: "same-origin",
             })
+            location.reload();
         }
     }
 </script>

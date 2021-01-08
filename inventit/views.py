@@ -2,7 +2,7 @@ import zipfile
 
 import io
 
-from django.db.models import Q
+from django.db.models import Q, F, Subquery
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -29,7 +29,7 @@ def capture1(request):
         Q(count_header=count_header.first()) & Q(category__in=categories)
     )
 
-    context = {"count_headers": count_header, "lines": count_lines, "count": 1}
+    context = {"count_headers": count_header, "lines": count_lines, "count": 1, "team": profile.team.name}
 
     return render(request, template, context)
 
@@ -49,7 +49,7 @@ def capture2(request):
         Q(count_header=count_header.first()) & Q(category__in=categories)
     )
 
-    context = {"count_headers": count_header, "lines": count_lines, "count": 2}
+    context = {"count_headers": count_header, "lines": count_lines, "count": 2, "team": profile.team.name}
 
     return render(request, template, context)
 
@@ -68,7 +68,7 @@ def capture3(request):
     count_lines = CountLines.objects.filter(
         Q(count_header=count_header.first()) & Q(category__in=categories)
     )
-    context = {"count_headers": count_header, "lines": count_lines, "count": 3}
+    context = {"count_headers": count_header, "lines": count_lines, "count": 3, "team": profile.team.name}
 
     return render(request, template, context)
 
@@ -77,11 +77,15 @@ def capture3(request):
 def summary(request):
     template = "inventit/summary.html"
 
+    counts_sign_off = Team.objects.all().values_list('name', 'count_1_sign_off', 'count_2_sign_off', 'count_3_sign_off')
+
     count_header = CountHeader.objects.filter(is_active=True)
 
-    inventory = (
-        Inventory.objects.all()
-    )  # CountLines.objects.filter(count_header=count_header.first())
+    inventory = Inventory.objects.all() \
+        .annotate(count_variance=F('count_summary') - F('count_theoretical')) \
+        .annotate(cost_variance=F('count_variance') * F('cost'))
+
+    cost_variance_sum = inventory.aggregate(Sum('cost_variance'))['cost_variance__sum']
 
     summary_count1 = (
         CountLines.objects.filter(count_header=count_header.first())
@@ -120,9 +124,14 @@ def summary(request):
         "summary_count2Percentage": summary_count2Percentage,
         "summary_count3Percentage": summary_count3Percentage,
         "total": total,
+        "counts_sign_off": counts_sign_off
     }
 
-    context = {"count_headers": count_header, "inventory": inventory, "counts": counts}
+    context = {
+        "count_headers": count_header, "inventory": inventory,
+        "counts": counts, "counts_sign_off": counts_sign_off,
+        "cost_variance_sum": cost_variance_sum
+    }
 
     return render(request, template, context)
 
@@ -239,7 +248,7 @@ def sign_off(request, count):
 
 @login_required()
 def export(request):
-    output = io.StringIO.StringIO()
+    output = io.StringIO()
     writer = csv.writer(output, dialect="excel")
 
     inventory = export_inventory()
@@ -256,7 +265,7 @@ def export(request):
 
 
 def export_countlines():
-    output = io.StringIO.StringIO()
+    output = io.StringIO()
     writer = csv.writer(output)
     writer.writerow(["Item Code", "Count 1", "Count 2", "Count 3", "Theoretical"])
 
@@ -277,7 +286,7 @@ def export_countlines():
 
 
 def export_inventory():
-    output = io.StringIO.StringIO()
+    output = io.StringIO()
     writer = csv.writer(output)
     writer.writerow(["Item Code", "Theoretical", "Count Summary"])
 
