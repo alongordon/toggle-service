@@ -25,7 +25,7 @@ class CountLinesAdmin(ImportExportModelAdmin):
     search_fields = ["inventory__item_code"]
     save_as = True
     actions = ['delete_all']
-    resource_class = CountLinesResource
+    # resource_class = CountLinesResource
 
     def delete_all(self, request, queryset):
         CountLines.objects.all().delete()
